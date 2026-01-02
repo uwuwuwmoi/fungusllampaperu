@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nosotros - FungusLlampa</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Nosotros</a></li>
+        <li><a href="cepas.html">Productos</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <section class="about-hero">
+        <div class="hero-content">
+          <h1 class="hero-title">FUNGUSLLAMPA</h1>
+          <p class="hero-subtitle">Micología</p>
+        </div>
+      </section>
+
+      <section class="story-section">
+        <div class="content-wrapper">
+          <div class="story-row">
+            <div class="story-text">
+              <h2>El Origen</h2>
+              <p>
+                FungusLlampa nace de la unión de dos mundos que respetamos
+                profundamente.
+                <strong>'Fungus'</strong> representa la ciencia, la biología y
+                la precisión del laboratorio. <strong>'Llampa'</strong> es
+                nuestro corazón: honra la <strong>lampa</strong>, la herramienta
+                que labra el suelo peruano. <br /><br />
+                Somos tecnología de vanguardia aplicada con el respeto y el
+                esfuerzo manual.
+              </p>
+            </div>
+            <div class="story-image">
+              <img src="img/story-origen.webp" alt="Fungus y Llampa" />
+            </div>
+          </div>
+
+          <div class="story-row reverse">
+            <div class="story-text">
+              <h2>Aprendizaje y Evolución</h2>
+              <p>
+                Comenzamos en una habitación pequeña, luchando con cajas de aire
+                y métodos caseros. Aprendimos la lección más valiosa: en
+                micología, <strong>la esterilidad no es negociable</strong>.
+                <br /><br />
+                Hoy, hemos cambiado las cajas de plástico por flujos laminares
+                de grado laboratorio. Invertimos en tecnología para garantizar
+                pureza absoluta.
+              </p>
+            </div>
+            <div class="story-image">
+              <img src="img/story-lab.webp" alt="Laboratorio Micología" />
+            </div>
+          </div>
+
+          <div class="story-row">
+            <div class="story-text">
+              <h2>¿Por qué existimos?</h2>
+              <p>
+                Sabemos lo que se siente ver un cultivo arruinarse por
+                contaminación o recibir genéticas de mala calidad.
+                <br /><br />
+                Creamos <strong>Fungusllampa</strong> para ser la fuente
+                confiable que buscábamos: productos de primera calidad
+                garantizada.
+              </p>
+            </div>
+            <div class="story-image">
+              <img src="img/story-why.webp" alt="Cultivo Sano" />
+            </div>
+          </div>
+
+          <div class="story-row reverse">
+            <div class="story-text">
+              <h2>Rigor y Respeto</h2>
+              <p>
+                Tratamos nuestros insumos con rigor científico. Nuestro proceso
+                es estricto: temperaturas controladas y ambientes estériles.
+                <br /><br />
+                Creemos que la micología debe ser tratada con respeto.
+                Seleccionamos solo lo mejor.
+              </p>
+            </div>
+            <div class="story-image">
+              <img src="img/story-respect.webp" alt="Procesamiento" />
+            </div>
+          </div>
+
+          <div style="margin-top: 80px; text-align: center">
+            <a href="cepas.html">
+              <button
+                class="add-cart-btn"
+                style="padding: 15px 50px; max-width: 300px"
+              >
+                Ver Catálogo
+              </button>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-content">
+        <div class="footer-col">
+          <h3>FungusLlampa</h3>
+          <p>
+            Micología profesional en Lima. Llevando la ciencia y el respeto por
+            los hongos a tu hogar.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h3>Navegación</h3>
+          <ul class="footer-links">
+            <li><a href="cepas.html">Cepas y Genéticas</a></li>
+            <li><a href="cepas.html">Kits de Cultivo</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <div class="legal-notice">
+            <strong>Aviso Legal Importante:</strong><br /><br />
+            Los productos ofrecidos se venden exclusivamente para fines de
+            observación microscópica, colección taxonómica y preservación
+            genética.
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; 2026 FungusLlampa. Todos los derechos reservados.
+      </div>
+    </footer>
+
+    <div class="cart-icon" onclick="toggleCart()">
+      🛒 <span id="cart-count">0</span>
+    </div>
+
+    <div id="cartModal" class="cart-modal">
+      <div class="cart-content">
+        <span class="close-cart" onclick="toggleCart()">&times;</span>
+        <h2>Tu Pedido</h2>
+        <div id="cart-items" class="cart-items-container">
+          <p class="empty-msg">Tu carrito está vacío.</p>
+        </div>
+        <div class="cart-footer">
+          <div class="total-row">
+            <span>Total:</span>
+            <span id="cart-total">S/.0.00</span>
+          </div>
+          <button class="checkout-btn" onclick="sendToWhatsapp()">
+            <span class="btn-icon">📱</span> Pedir por WhatsApp
+          </button>
+          <button class="clear-btn" onclick="clearCart()">
+            Vaciar Carrito
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
