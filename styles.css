@@ -61,16 +61,17 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  /* PROPIEDADES CLAVE DE FONDO */
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
+  background-attachment: fixed; /* Parallax simple */
   padding: 100px 20px;
 }
 
-/* FONDOS (Usando rutas locales) */
+/* FONDOS (Sin gradientes oscuros, imagen pura) */
 #cepas-bg {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-    url("img/fondo-cepas.webp");
+  /* Solo la imagen, sin linear-gradient */
+  background-image: url("img/fondo-cepas.webp");
 }
 
 /* --- CONTENEDOR CENTRAL --- */
@@ -87,7 +88,10 @@ main {
   font-size: 4rem;
   color: #d4af37;
   margin-bottom: 5px;
+  text-shadow: 1px 1px 5px rgba(0,0,0,0.5); /* Sombra suave para leer sobre imagen */
 }
+
+/* En Cepas (fondo oscuro), texto blanco */
 #cepas-bg .category-title {
   color: #fff;
 }
@@ -98,8 +102,11 @@ main {
   color: #555;
   margin-bottom: 40px;
 }
+
+/* Texto claro sobre fondo imagen */
 #cepas-bg .description-top {
-  color: #e0e0e0;
+  color: #f0f0f0;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
 }
 
 /* --- GRID PRODUCTOS --- */
@@ -174,8 +181,8 @@ main {
 .about-hero {
   height: 60vh;
   width: 100%;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("img/hero-bg.webp");
+  /* Solo imagen, sin gradiente oscuro */
+  background-image: url("img/hero-bg.webp");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -189,13 +196,13 @@ main {
   font-size: 4rem;
   color: #fff;
   letter-spacing: 2px;
-  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.9); /* Sombra fuerte para legibilidad */
 }
 
 .hero-subtitle {
   font-size: 1.5rem;
   color: #d4af37;
-  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.9);
 }
 
 /* --- HISTORIA (Estructura Zig-Zag) --- */
@@ -212,7 +219,6 @@ main {
   margin-bottom: 100px;
 }
 
-/* En Desktop, esto hace que la imagen vaya a la izquierda y el texto a la derecha */
 .story-row.reverse {
   flex-direction: row-reverse;
 }
@@ -389,7 +395,6 @@ main {
   flex: 1.2;
   background-color: #f0f0f0;
   position: relative;
-  /* Flexbox para centrar contenido */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -397,14 +402,13 @@ main {
   padding: 20px;
 }
 
-/* Regla para que la imagen se ajuste sin deformarse */
 .modal-img-wrapper img.modal-static-img,
 .carousel-slide {
   max-width: 100%;
   max-height: 100%;
   width: auto;
   height: auto;
-  object-fit: contain; /* Clave para ver la imagen entera */
+  object-fit: contain;
   display: block;
 }
 
@@ -728,12 +732,7 @@ main {
   .product-grid-4col {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  /* CORRECCIÓN CRÍTICA DE MÓVIL:
-     Forzamos 'column' en TODAS las filas de historia.
-     Como en el HTML el div de texto va antes que el de imagen,
-     esto asegura el orden: Texto (arriba) -> Imagen (abajo).
-  */
+  
   .story-row,
   .story-row.reverse {
     flex-direction: column !important;
