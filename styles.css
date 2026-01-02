@@ -67,7 +67,7 @@ main {
   padding: 100px 20px;
 }
 
-/* FONDOS */
+/* FONDOS (Usando rutas locales) */
 #cepas-bg {
   background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
     url("img/fondo-cepas.webp");
@@ -198,6 +198,7 @@ main {
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
 }
 
+/* --- HISTORIA (Estructura Zig-Zag) --- */
 .story-section {
   padding: 80px 20px;
   background-color: #f4f4f4;
@@ -211,6 +212,7 @@ main {
   margin-bottom: 100px;
 }
 
+/* En Desktop, esto hace que la imagen vaya a la izquierda y el texto a la derecha */
 .story-row.reverse {
   flex-direction: row-reverse;
 }
@@ -220,6 +222,7 @@ main {
   font-size: 2.5rem;
   color: #d4af37;
   margin-bottom: 20px;
+  text-align: left;
 }
 
 .story-text p {
@@ -317,7 +320,7 @@ main {
 
 /* --- MODAL (POP-UP PRODUCTO) --- */
 .modal {
-  display: none; /* Oculto por defecto */
+  display: none;
   position: fixed;
   z-index: 2000;
   left: 0;
@@ -331,8 +334,8 @@ main {
 }
 
 .modal-content {
-  background-color: #fff; /* Fondo blanco (Light Mode) */
-  color: #333; /* Texto oscuro */
+  background-color: #fff;
+  color: #333;
   border: none;
   width: 90%;
   max-width: 900px;
@@ -381,37 +384,38 @@ main {
   min-height: 400px;
 }
 
+/* --- IMAGENES MODAL (CENTRADAS) --- */
 .modal-img-wrapper {
   flex: 1.2;
   background-color: #f0f0f0;
   position: relative;
+  /* Flexbox para centrar contenido */
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  padding: 20px;
 }
 
-.modal-img-wrapper img.modal-static-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+/* Regla para que la imagen se ajuste sin deformarse */
+.modal-img-wrapper img.modal-static-img,
+.carousel-slide {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain; /* Clave para ver la imagen entera */
+  display: block;
 }
 
-/* Carrusel dentro del Modal */
 .carousel-slide {
   display: none;
   animation: fade 0.4s;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
 }
+
 @keyframes fade {
-  from {
-    opacity: 0.8;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0.8; }
+  to { opacity: 1; }
 }
 
 .carousel-btn {
@@ -551,7 +555,7 @@ main {
 }
 
 .cart-modal {
-  display: none; /* Oculto por defecto */
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -559,7 +563,7 @@ main {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1001;
-  justify-content: flex-end; /* Alineado a la derecha */
+  justify-content: flex-end;
 }
 
 .cart-content {
@@ -724,10 +728,28 @@ main {
   .product-grid-4col {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  /* CORRECCIÓN CRÍTICA DE MÓVIL:
+     Forzamos 'column' en TODAS las filas de historia.
+     Como en el HTML el div de texto va antes que el de imagen,
+     esto asegura el orden: Texto (arriba) -> Imagen (abajo).
+  */
   .story-row,
   .story-row.reverse {
-    flex-direction: column;
+    flex-direction: column !important;
+    gap: 30px;
+    margin-bottom: 60px;
   }
+
+  .story-text h2 {
+    text-align: center;
+  }
+
+  .story-image {
+    width: 100%;
+    height: 300px;
+  }
+
   .contact-grid {
     grid-template-columns: 1fr;
   }
@@ -750,6 +772,7 @@ main {
   .modal-img-wrapper {
     height: 300px;
     flex: none;
+    padding: 10px;
   }
   .modal-details {
     padding: 20px;
