@@ -102,15 +102,17 @@ main {
   color: #fff;
   text-shadow: 2px 2px 10px rgba(0, 0, 0, 1);
   text-align: center;
-  margin-bottom: 80px; /* Separación extra */
 }
 
-.description-top {
-  font-family: "Playfair Display", serif;
-  font-size: 1.2rem;
-  color: #eee;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
-  margin-bottom: 40px;
+/* CORRECCIÓN: Margen grande SOLO para la sección de Contacto ("Síguenos") */
+.contact-section .category-title {
+  margin-bottom: 80px; 
+}
+
+/* CORRECCIÓN: Margen pequeño para Cepas, así el subtítulo queda pegado */
+#cepas-bg .category-title {
+  margin-bottom: 10px; 
+}
   text-align: center;
 }
 #cepas-bg .description-top { color: #f0f0f0; }
