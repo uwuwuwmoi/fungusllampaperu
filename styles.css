@@ -8,12 +8,21 @@
 body {
   /* FONDO GLOBAL */
   background-image: url("img/imghero-bg.webp");
-  background-size: cover;
-  background-position: top center;
-  /* 'scroll' evita problemas de rendimiento en móviles con imágenes grandes */
-  background-attachment: scroll;
-  background-repeat: no-repeat;
-
+  
+  /* CAMBIO CLAVE: */
+  /* '100% auto' fuerza a que la imagen respete el ancho de la pantalla (calidad máxima) */
+  /* en lugar de estirarse hasta el final de la página (lo que causaba el pixelado). */
+  background-size: 100% auto; 
+  
+  background-position: top center;  
+  background-attachment: scroll; 
+  
+  /* Si la página es muy larga, la imagen se repetirá suavemente hacia abajo */
+  background-repeat: repeat-y; 
+  
+  /* Color de fondo de respaldo por si acaso */
+  background-color: #f4f4f4; 
+  
   color: #333;
   font-family: "Roboto", sans-serif;
   overflow-x: hidden;
@@ -70,7 +79,6 @@ main {
 
 /* --- UTILIDADES DE TEXTO Y TÍTULOS --- */
 
-/* Contenedor de cabecera para centrar */
 .section-header {
   text-align: center;
   width: 100%;
@@ -90,11 +98,11 @@ main {
 
 /* ESTILOS ESPECÍFICOS PARA TÍTULOS BLANCOS (CEPAS Y CONTACTO) */
 #cepas-bg .category-title,
-.contact-section .category-title {
+.contact-section .category-title { 
   color: #fff;
-  text-shadow: 2px 2px 10px rgba(0, 0, 0, 1); /* Sombra fuerte para leer sobre fondo */
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 1);
   text-align: center;
-  margin-bottom: 80px; /* Separación extra para que no se vea pegado */
+  margin-bottom: 80px; /* Separación extra */
 }
 
 .description-top {
@@ -105,32 +113,31 @@ main {
   margin-bottom: 40px;
   text-align: center;
 }
-#cepas-bg .description-top {
-  color: #f0f0f0;
-}
+#cepas-bg .description-top { color: #f0f0f0; }
 
-/* --- HERO SECTION (SPLIT / PANTALLA DIVIDIDA) --- */
+
+/* --- HERO SECTION (SPLIT) --- */
 .hero-split-section {
-  min-height: 90vh; /* Ocupa la pantalla inicial */
+  min-height: 90vh;
   display: flex;
   align-items: center;
-  padding-top: 80px; /* Compensar navbar fija */
+  padding-top: 80px;
   padding-bottom: 40px;
 }
 
 .hero-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* 50% Texto - 50% Imagen */
+  grid-template-columns: 1fr 1fr;
   gap: 50px;
   align-items: center;
 }
 
 .hero-text-content {
   text-align: left;
-  background-color: rgba(255, 255, 255, 0.95); /* Fondo blanco casi sólido */
+  background-color: rgba(255, 255, 255, 0.95);
   padding: 40px;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
 .hero-main-title {
@@ -142,7 +149,7 @@ main {
 }
 
 .hero-main-title .highlight {
-  color: #d4af37; /* Dorado */
+  color: #d4af37;
 }
 
 .hero-subtitle {
@@ -198,7 +205,7 @@ main {
   height: 500px;
   border-radius: 30px;
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
   background-color: #fff;
 }
 .hero-image-container img {
@@ -208,7 +215,8 @@ main {
   display: block;
 }
 
-/* --- SECCIÓN HISTORIA (TEXTO + IMAGEN LATERAL) --- */
+
+/* --- SECCIÓN HISTORIA --- */
 .story-section {
   padding: 60px 20px 100px;
 }
@@ -219,10 +227,10 @@ main {
   justify-content: space-between;
   gap: 60px;
   margin-bottom: 80px;
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(255,255,255,0.95);
   padding: 40px;
   border-radius: 20px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
 }
 
 .story-row.reverse {
@@ -260,6 +268,7 @@ main {
   object-fit: cover;
   display: block;
 }
+
 
 /* --- GRID PRODUCTOS --- */
 .product-grid-4col {
@@ -339,6 +348,7 @@ main {
   padding: 100px 20px;
 }
 
+
 /* --- CONTACTO --- */
 .contact-section {
   padding: 120px 20px 60px;
@@ -378,18 +388,10 @@ main {
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
 
-.social-icon {
-  font-size: 2.5rem;
-}
+.social-icon { font-size: 2.5rem; }
 
-.social-info h3 {
-  font-size: 1.2rem;
-  margin-bottom: 5px;
-}
-.social-info p {
-  font-size: 0.9rem;
-  color: #666;
-}
+.social-info h3 { font-size: 1.2rem; margin-bottom: 5px; }
+.social-info p { font-size: 0.9rem; color: #666; }
 
 .contact-info-side {
   background: #fff;
@@ -410,6 +412,7 @@ main {
   line-height: 1.6;
   color: #555;
 }
+
 
 /* --- MODAL (POP-UP PRODUCTO) --- */
 .modal {
@@ -443,14 +446,8 @@ main {
 }
 
 @keyframes modalFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .close-btn {
@@ -464,9 +461,7 @@ main {
   z-index: 10;
   transition: color 0.3s;
 }
-.close-btn:hover {
-  color: #d4af37;
-}
+.close-btn:hover { color: #d4af37; }
 
 .modal-body {
   display: flex;
@@ -497,18 +492,8 @@ main {
   display: block;
 }
 
-.carousel-slide {
-  display: none;
-  animation: fade 0.4s;
-}
-@keyframes fade {
-  from {
-    opacity: 0.8;
-  }
-  to {
-    opacity: 1;
-  }
-}
+.carousel-slide { display: none; animation: fade 0.4s; }
+@keyframes fade { from { opacity: 0.8; } to { opacity: 1; } }
 
 .carousel-btn {
   cursor: pointer;
@@ -526,17 +511,9 @@ main {
   border: none;
   z-index: 5;
 }
-.carousel-btn:hover {
-  background-color: rgba(255, 255, 255, 0.9);
-}
-.carousel-btn.prev {
-  left: 0;
-  border-radius: 0 3px 3px 0;
-}
-.carousel-btn.next {
-  right: 0;
-  border-radius: 3px 0 0 3px;
-}
+.carousel-btn:hover { background-color: rgba(255, 255, 255, 0.9); }
+.carousel-btn.prev { left: 0; border-radius: 0 3px 3px 0; }
+.carousel-btn.next { right: 0; border-radius: 3px 0 0 3px; }
 
 .modal-details {
   flex: 1;
@@ -569,15 +546,8 @@ main {
   overflow-y: auto;
 }
 
-.modal-selectors {
-  margin-bottom: 25px;
-}
-.modal-selectors label {
-  display: block;
-  margin-bottom: 8px;
-  color: #333;
-  font-size: 0.9rem;
-}
+.modal-selectors { margin-bottom: 25px; }
+.modal-selectors label { display: block; margin-bottom: 8px; color: #333; font-size: 0.9rem; }
 .modal-selectors select {
   width: 100%;
   padding: 12px;
@@ -603,9 +573,8 @@ main {
   margin-top: auto;
   width: 100%;
 }
-.add-cart-btn:hover {
-  background-color: #f1c40f;
-}
+.add-cart-btn:hover { background-color: #f1c40f; }
+
 
 /* --- CARRITO (CART MODAL) --- */
 .cart-icon {
@@ -626,9 +595,7 @@ main {
   z-index: 1000;
   transition: transform 0.2s;
 }
-.cart-icon:hover {
-  transform: scale(1.1);
-}
+.cart-icon:hover { transform: scale(1.1); }
 
 #cart-count {
   position: absolute;
@@ -666,80 +633,19 @@ main {
   animation: slideIn 0.3s ease-out;
   color: #333;
 }
-@keyframes slideIn {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
+@keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
 
-.close-cart {
-  align-self: flex-end;
-  font-size: 28px;
-  cursor: pointer;
-  color: #333;
-}
-.cart-items-container {
-  flex-grow: 1;
-  overflow-y: auto;
-  margin-top: 20px;
-  border-top: 1px solid #eee;
-}
-.cart-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid #eee;
-}
-.item-info h4 {
-  margin: 0;
-  font-size: 16px;
-}
-.item-info span {
-  font-size: 12px;
-  color: #666;
-}
-.remove-item {
-  color: red;
-  cursor: pointer;
-  font-size: 1.2rem;
-  margin-left: 10px;
-}
-.cart-footer {
-  margin-top: 20px;
-  border-top: 2px solid #333;
-  padding-top: 10px;
-}
-.total-row {
-  display: flex;
-  justify-content: space-between;
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 15px;
-}
-.checkout-btn {
-  width: 100%;
-  padding: 15px;
-  background-color: #25d366;
-  color: white;
-  border: none;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 5px;
-  margin-bottom: 10px;
-}
-.clear-btn {
-  width: 100%;
-  padding: 10px;
-  background: transparent;
-  border: 1px solid #ccc;
-  color: #666;
-  cursor: pointer;
-}
+.close-cart { align-self: flex-end; font-size: 28px; cursor: pointer; color: #333; }
+.cart-items-container { flex-grow: 1; overflow-y: auto; margin-top: 20px; border-top: 1px solid #eee; }
+.cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; }
+.item-info h4 { margin: 0; font-size: 16px; }
+.item-info span { font-size: 12px; color: #666; }
+.remove-item { color: red; cursor: pointer; font-size: 1.2rem; margin-left: 10px; }
+.cart-footer { margin-top: 20px; border-top: 2px solid #333; padding-top: 10px; }
+.total-row { display: flex; justify-content: space-between; font-size: 20px; font-weight: bold; margin-bottom: 15px; }
+.checkout-btn { width: 100%; padding: 15px; background-color: #25d366; color: white; border: none; font-size: 18px; font-weight: bold; cursor: pointer; border-radius: 5px; margin-bottom: 10px; }
+.clear-btn { width: 100%; padding: 10px; background: transparent; border: 1px solid #ccc; color: #666; cursor: pointer; }
+
 
 /* --- FOOTER --- */
 .site-footer {
@@ -764,26 +670,12 @@ main {
   margin-bottom: 20px;
   font-size: 1.5rem;
 }
-.footer-col p {
-  font-size: 0.9rem;
-  line-height: 1.6;
-  margin-bottom: 15px;
-}
+.footer-col p { font-size: 0.9rem; line-height: 1.6; margin-bottom: 15px; }
 
-.footer-links {
-  list-style: none;
-}
-.footer-links li {
-  margin-bottom: 10px;
-}
-.footer-links a {
-  color: #ccc;
-  text-decoration: none;
-  transition: color 0.3s;
-}
-.footer-links a:hover {
-  color: #d4af37;
-}
+.footer-links { list-style: none; }
+.footer-links li { margin-bottom: 10px; }
+.footer-links a { color: #ccc; text-decoration: none; transition: color 0.3s; }
+.footer-links a:hover { color: #d4af37; }
 
 .legal-notice {
   background-color: #1a1a1a;
@@ -801,6 +693,7 @@ main {
   font-size: 0.85rem;
   color: #666;
 }
+
 
 /* --- RESPONSIVE (MÓVIL) --- */
 @media (max-width: 900px) {
@@ -821,8 +714,7 @@ main {
   }
 
   /* Historia se apila */
-  .story-row,
-  .story-row.reverse {
+  .story-row, .story-row.reverse {
     flex-direction: column;
     gap: 30px;
     margin-bottom: 60px;
@@ -842,13 +734,8 @@ main {
   }
 
   /* Footer y Contacto 1 columna */
-  .contact-grid {
-    grid-template-columns: 1fr;
-  }
-  .footer-content {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
+  .contact-grid { grid-template-columns: 1fr; }
+  .footer-content { grid-template-columns: 1fr; gap: 30px; }
 
   /* Modal responsive */
   .modal-content {
@@ -857,17 +744,7 @@ main {
     max-height: 90vh;
     overflow-y: auto;
   }
-  .modal-body {
-    flex-direction: column;
-    min-height: auto;
-  }
-  .modal-img-wrapper {
-    height: 300px;
-    flex: none;
-    padding: 10px;
-  }
-  .modal-details {
-    padding: 20px;
-    flex: none;
-  }
+  .modal-body { flex-direction: column; min-height: auto; }
+  .modal-img-wrapper { height: 300px; flex: none; padding: 10px; }
+  .modal-details { padding: 20px; flex: none; }
 }
