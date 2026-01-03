@@ -6,11 +6,12 @@
 }
 
 body {
-  /* CAMBIO: Fondo Global Fijo */
+  /* FONDO GLOBAL */
   background-image: url("img/imghero-bg.webp");
   background-size: cover;
-  background-position: center;
-  background-attachment: fixed; /* La imagen se queda quieta al bajar */
+  background-position: top center;
+  /* 'scroll' evita problemas de rendimiento en móviles con imágenes grandes */
+  background-attachment: scroll;
   background-repeat: no-repeat;
 
   color: #333;
@@ -59,30 +60,22 @@ main {
   color: #d4af37;
 }
 
-/* --- SECCIONES FULL SCREEN --- */
-.full-screen-section {
-  min-height: 100vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: transparent; /* Transparente para ver el fondo */
-  padding: 100px 20px;
-}
-
-/* FONDOS ESPECÍFICOS ELIMINADOS PARA USAR EL GLOBAL */
-#cepas-bg {
-  /* background-image eliminado para ver el body */
-}
-
-/* --- CONTENEDOR CENTRAL --- */
+/* --- CONTENEDOR CENTRAL GLOBAL --- */
 .content-wrapper {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
   padding: 0 20px;
+}
+
+/* --- UTILIDADES DE TEXTO Y TÍTULOS --- */
+
+/* Contenedor de cabecera para centrar */
+.section-header {
   text-align: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto 40px;
 }
 
 .category-title {
@@ -90,25 +83,182 @@ main {
   font-size: 4rem;
   color: #d4af37;
   margin-bottom: 5px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Sombra añadida para leer sobre fondo */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  line-height: 1.2;
+  text-align: center;
 }
 
-/* Título en Cepas */
-#cepas-bg .category-title {
+/* ESTILOS ESPECÍFICOS PARA TÍTULOS BLANCOS (CEPAS Y CONTACTO) */
+#cepas-bg .category-title,
+.contact-section .category-title {
   color: #fff;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 1); /* Sombra fuerte para leer sobre fondo */
+  text-align: center;
+  margin-bottom: 80px; /* Separación extra para que no se vea pegado */
 }
 
 .description-top {
   font-family: "Playfair Display", serif;
   font-size: 1.2rem;
-  color: #eee; /* Texto claro para ver sobre fondo oscuro si la imagen lo es */
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+  color: #eee;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
   margin-bottom: 40px;
+  text-align: center;
 }
-
 #cepas-bg .description-top {
   color: #f0f0f0;
+}
+
+/* --- HERO SECTION (SPLIT / PANTALLA DIVIDIDA) --- */
+.hero-split-section {
+  min-height: 90vh; /* Ocupa la pantalla inicial */
+  display: flex;
+  align-items: center;
+  padding-top: 80px; /* Compensar navbar fija */
+  padding-bottom: 40px;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 50% Texto - 50% Imagen */
+  gap: 50px;
+  align-items: center;
+}
+
+.hero-text-content {
+  text-align: left;
+  background-color: rgba(255, 255, 255, 0.95); /* Fondo blanco casi sólido */
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.hero-main-title {
+  font-family: "Playfair Display", serif;
+  font-size: 3.5rem;
+  color: #111;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.hero-main-title .highlight {
+  color: #d4af37; /* Dorado */
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  background-color: #d4af37;
+  color: #000;
+  padding: 15px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: transform 0.2s, background 0.3s;
+  border: 2px solid #d4af37;
+  display: inline-block;
+}
+.btn-primary:hover {
+  background-color: #f1c40f;
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: #333;
+  padding: 15px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+  border: 2px solid #333;
+  transition: all 0.3s;
+  display: inline-block;
+}
+.btn-outline:hover {
+  background-color: #333;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.hero-image-container {
+  width: 100%;
+  height: 500px;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+}
+.hero-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* --- SECCIÓN HISTORIA (TEXTO + IMAGEN LATERAL) --- */
+.story-section {
+  padding: 60px 20px 100px;
+}
+
+.story-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+  margin-bottom: 80px;
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.story-row.reverse {
+  flex-direction: row-reverse;
+}
+
+.story-text-side {
+  flex: 1;
+}
+
+.story-text-side h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 2.5rem;
+  color: #d4af37;
+  margin-bottom: 20px;
+}
+
+.story-text-side p {
+  color: #444;
+  line-height: 1.8;
+  text-align: justify;
+  font-size: 1.05rem;
+}
+
+.story-image-side {
+  flex: 1;
+  height: 400px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+.story-image-side img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* --- GRID PRODUCTOS --- */
@@ -119,7 +269,6 @@ main {
   width: 100%;
 }
 
-/* --- TARJETAS --- */
 .product-item {
   display: flex;
   flex-direction: column;
@@ -127,7 +276,7 @@ main {
   cursor: pointer;
   width: 100%;
   transition: transform 0.2s;
-  background: white; /* FONDO SÓLIDO (No transparente) */
+  background: white;
   border-radius: 15px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
@@ -159,7 +308,7 @@ main {
 }
 
 .info-box {
-  background-color: #fff; /* SÓLIDO */
+  background-color: #fff;
   width: 100%;
   padding: 20px 10px;
   text-align: center;
@@ -179,94 +328,18 @@ main {
   font-weight: bold;
 }
 
-/* --- HERO & STORY --- */
-.about-hero {
-  height: 60vh;
+.full-screen-section {
+  min-height: 100vh;
   width: 100%;
-  background: transparent; /* Transparente para ver el fondo global */
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: transparent;
+  padding: 100px 20px;
 }
 
-.hero-title {
-  font-family: "Playfair Display", serif;
-  font-size: 4rem;
-  color: #fff;
-  letter-spacing: 2px;
-  text-shadow: 2px 2px 10px rgba(0, 0, 0, 1); /* Sombra fuerte */
-}
-
-.hero-subtitle {
-  font-size: 1.5rem;
-  color: #d4af37;
-  text-shadow: 1px 1px 5px rgba(0, 0, 0, 1);
-  background-color: rgba(
-    0,
-    0,
-    0,
-    0.5
-  ); /* Pequeña caja oscura para legibilidad */
-  padding: 5px 15px;
-  border-radius: 5px;
-}
-
-/* --- HISTORIA (Estructura Zig-Zag) --- */
-.story-section {
-  padding: 80px 20px;
-  background-color: transparent; /* Transparente, se ve la imagen de fondo */
-}
-
-/* Cajas de texto de historia con fondo para legibilidad */
-.story-text {
-  background-color: #fff; /* Fondo blanco sólido para el texto */
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.story-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 60px;
-  margin-bottom: 100px;
-}
-
-.story-row.reverse {
-  flex-direction: row-reverse;
-}
-
-.story-text h2 {
-  font-family: "Playfair Display", serif;
-  font-size: 2.5rem;
-  color: #d4af37;
-  margin-bottom: 20px;
-  text-align: left;
-}
-
-.story-text p {
-  color: #555;
-  line-height: 1.8;
-  text-align: justify;
-}
-
-.story-image {
-  flex: 1;
-  height: 350px;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-  background-color: #fff; /* Borde blanco si la imagen no carga */
-}
-
-.story-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* --- CONTACT PAGE --- */
+/* --- CONTACTO --- */
 .contact-section {
   padding: 120px 20px 60px;
   max-width: 1200px;
@@ -287,7 +360,7 @@ main {
 }
 
 .social-card {
-  background: white; /* SÓLIDO */
+  background: white;
   padding: 30px;
   border-radius: 15px;
   display: flex;
@@ -313,14 +386,13 @@ main {
   font-size: 1.2rem;
   margin-bottom: 5px;
 }
-
 .social-info p {
   font-size: 0.9rem;
   color: #666;
 }
 
 .contact-info-side {
-  background: #fff; /* SÓLIDO */
+  background: #fff;
   padding: 40px;
   border-radius: 20px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
@@ -392,7 +464,6 @@ main {
   z-index: 10;
   transition: color 0.3s;
 }
-
 .close-btn:hover {
   color: #d4af37;
 }
@@ -405,7 +476,6 @@ main {
   min-height: 400px;
 }
 
-/* --- IMAGENES MODAL (CENTRADAS) --- */
 .modal-img-wrapper {
   flex: 1.2;
   background-color: #f0f0f0;
@@ -431,7 +501,6 @@ main {
   display: none;
   animation: fade 0.4s;
 }
-
 @keyframes fade {
   from {
     opacity: 0.8;
@@ -469,7 +538,6 @@ main {
   border-radius: 3px 0 0 3px;
 }
 
-/* Detalles Modal */
 .modal-details {
   flex: 1;
   padding: 40px;
@@ -504,14 +572,12 @@ main {
 .modal-selectors {
   margin-bottom: 25px;
 }
-
 .modal-selectors label {
   display: block;
   margin-bottom: 8px;
   color: #333;
   font-size: 0.9rem;
 }
-
 .modal-selectors select {
   width: 100%;
   padding: 12px;
@@ -560,7 +626,6 @@ main {
   z-index: 1000;
   transition: transform 0.2s;
 }
-
 .cart-icon:hover {
   transform: scale(1.1);
 }
@@ -601,7 +666,6 @@ main {
   animation: slideIn 0.3s ease-out;
   color: #333;
 }
-
 @keyframes slideIn {
   from {
     transform: translateX(100%);
@@ -617,14 +681,12 @@ main {
   cursor: pointer;
   color: #333;
 }
-
 .cart-items-container {
   flex-grow: 1;
   overflow-y: auto;
   margin-top: 20px;
   border-top: 1px solid #eee;
 }
-
 .cart-item {
   display: flex;
   justify-content: space-between;
@@ -632,7 +694,6 @@ main {
   padding: 10px 0;
   border-bottom: 1px solid #eee;
 }
-
 .item-info h4 {
   margin: 0;
   font-size: 16px;
@@ -647,13 +708,11 @@ main {
   font-size: 1.2rem;
   margin-left: 10px;
 }
-
 .cart-footer {
   margin-top: 20px;
   border-top: 2px solid #333;
   padding-top: 10px;
 }
-
 .total-row {
   display: flex;
   justify-content: space-between;
@@ -661,7 +720,6 @@ main {
   font-weight: bold;
   margin-bottom: 15px;
 }
-
 .checkout-btn {
   width: 100%;
   padding: 15px;
@@ -674,7 +732,6 @@ main {
   border-radius: 5px;
   margin-bottom: 10px;
 }
-
 .clear-btn {
   width: 100%;
   padding: 10px;
@@ -707,7 +764,6 @@ main {
   margin-bottom: 20px;
   font-size: 1.5rem;
 }
-
 .footer-col p {
   font-size: 0.9rem;
   line-height: 1.6;
@@ -746,28 +802,46 @@ main {
   color: #666;
 }
 
-/* --- RESPONSIVE --- */
+/* --- RESPONSIVE (MÓVIL) --- */
 @media (max-width: 900px) {
-  .product-grid-4col {
-    grid-template-columns: repeat(2, 1fr);
+  /* Hero se apila */
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .hero-text-content {
+    text-align: center;
+    padding: 30px 20px;
+  }
+  .hero-buttons {
+    justify-content: center;
+  }
+  .hero-image-container {
+    height: 300px; /* Altura menor en móvil */
   }
 
+  /* Historia se apila */
   .story-row,
   .story-row.reverse {
-    flex-direction: column !important;
+    flex-direction: column;
     gap: 30px;
     margin-bottom: 60px;
-  }
-
-  .story-text h2 {
     text-align: center;
   }
-
-  .story-image {
+  .story-text-side p {
+    text-align: center;
+  }
+  .story-image-side {
     width: 100%;
     height: 300px;
   }
 
+  /* Productos 2 columnas */
+  .product-grid-4col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Footer y Contacto 1 columna */
   .contact-grid {
     grid-template-columns: 1fr;
   }
@@ -776,7 +850,7 @@ main {
     gap: 30px;
   }
 
-  /* Ajustes Modal Móvil */
+  /* Modal responsive */
   .modal-content {
     flex-direction: column;
     height: auto;
