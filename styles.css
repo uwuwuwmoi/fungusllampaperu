@@ -6,8 +6,14 @@
 }
 
 body {
-  background-color: #f4f4f4; /* FONDO CLARO */
-  color: #333; /* TEXTO OSCURO */
+  /* CAMBIO: Fondo Global Fijo */
+  background-image: url("img/imghero-bg.webp");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* La imagen se queda quieta al bajar */
+  background-repeat: no-repeat;
+
+  color: #333;
   font-family: "Roboto", sans-serif;
   overflow-x: hidden;
   display: flex;
@@ -61,17 +67,13 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* PROPIEDADES CLAVE DE FONDO */
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed; /* Parallax simple */
+  background: transparent; /* Transparente para ver el fondo */
   padding: 100px 20px;
 }
 
-/* FONDOS (Sin gradientes oscuros, imagen pura) */
+/* FONDOS ESPECÍFICOS ELIMINADOS PARA USAR EL GLOBAL */
 #cepas-bg {
-  /* Solo la imagen, sin linear-gradient */
-  background-image: url("img/fondo-cepas.webp");
+  /* background-image eliminado para ver el body */
 }
 
 /* --- CONTENEDOR CENTRAL --- */
@@ -88,25 +90,25 @@ main {
   font-size: 4rem;
   color: #d4af37;
   margin-bottom: 5px;
-  text-shadow: 1px 1px 5px rgba(0,0,0,0.5); /* Sombra suave para leer sobre imagen */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Sombra añadida para leer sobre fondo */
 }
 
-/* En Cepas (fondo oscuro), texto blanco */
+/* Título en Cepas */
 #cepas-bg .category-title {
   color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
 }
 
 .description-top {
   font-family: "Playfair Display", serif;
   font-size: 1.2rem;
-  color: #555;
+  color: #eee; /* Texto claro para ver sobre fondo oscuro si la imagen lo es */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
   margin-bottom: 40px;
 }
 
-/* Texto claro sobre fondo imagen */
 #cepas-bg .description-top {
   color: #f0f0f0;
-  text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
 }
 
 /* --- GRID PRODUCTOS --- */
@@ -125,14 +127,14 @@ main {
   cursor: pointer;
   width: 100%;
   transition: transform 0.2s;
-  background: white;
+  background: white; /* FONDO SÓLIDO (No transparente) */
   border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .product-item:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
 .img-container {
@@ -157,7 +159,7 @@ main {
 }
 
 .info-box {
-  background-color: #fff;
+  background-color: #fff; /* SÓLIDO */
   width: 100%;
   padding: 20px 10px;
   text-align: center;
@@ -181,11 +183,7 @@ main {
 .about-hero {
   height: 60vh;
   width: 100%;
-  /* Solo imagen, sin gradiente oscuro */
-  background-image: url("img/hero-bg.webp");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  background: transparent; /* Transparente para ver el fondo global */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -196,19 +194,35 @@ main {
   font-size: 4rem;
   color: #fff;
   letter-spacing: 2px;
-  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.9); /* Sombra fuerte para legibilidad */
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 1); /* Sombra fuerte */
 }
 
 .hero-subtitle {
   font-size: 1.5rem;
   color: #d4af37;
-  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.9);
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 1);
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.5
+  ); /* Pequeña caja oscura para legibilidad */
+  padding: 5px 15px;
+  border-radius: 5px;
 }
 
 /* --- HISTORIA (Estructura Zig-Zag) --- */
 .story-section {
   padding: 80px 20px;
-  background-color: #f4f4f4;
+  background-color: transparent; /* Transparente, se ve la imagen de fondo */
+}
+
+/* Cajas de texto de historia con fondo para legibilidad */
+.story-text {
+  background-color: #fff; /* Fondo blanco sólido para el texto */
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .story-row {
@@ -242,7 +256,8 @@ main {
   height: 350px;
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  background-color: #fff; /* Borde blanco si la imagen no carga */
 }
 
 .story-image img {
@@ -272,7 +287,7 @@ main {
 }
 
 .social-card {
-  background: white;
+  background: white; /* SÓLIDO */
   padding: 30px;
   border-radius: 15px;
   display: flex;
@@ -280,14 +295,14 @@ main {
   gap: 20px;
   text-decoration: none;
   color: #333;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s, box-shadow 0.2s;
   border-left: 5px solid #d4af37;
 }
 
 .social-card:hover {
   transform: translateX(10px);
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
 
 .social-icon {
@@ -305,10 +320,10 @@ main {
 }
 
 .contact-info-side {
-  background: #fff;
+  background: #fff; /* SÓLIDO */
   padding: 40px;
   border-radius: 20px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .contact-info-side h2 {
@@ -418,8 +433,12 @@ main {
 }
 
 @keyframes fade {
-  from { opacity: 0.8; }
-  to { opacity: 1; }
+  from {
+    opacity: 0.8;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .carousel-btn {
@@ -732,7 +751,7 @@ main {
   .product-grid-4col {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .story-row,
   .story-row.reverse {
     flex-direction: column !important;
