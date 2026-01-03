@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contacto - FungusLlampa</title>
+    <title>Cepas y Genética - FungusLlampa</title>
     <link rel="stylesheet" href="styles.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap"
@@ -14,80 +14,258 @@
     <nav class="navbar">
       <ul class="nav-links">
         <li><a href="index.html">Nosotros</a></li>
-        <li><a href="cepas.html">Cepas</a></li>
-        <li><a href="contacto.html" class="active">Contacto</a></li>
+        <li><a href="cepas.html" class="active">Cepas</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
       </ul>
     </nav>
 
     <main>
-      <section class="contact-section">
+      <section id="cepas-bg" class="full-screen-section">
         <div class="content-wrapper">
-          <h1 class="category-title" style="color: #333; margin-bottom: 50px">
-            Hablemos
-          </h1>
-
-          <div class="contact-grid">
-            <div class="social-cards">
-              <a
-                href="https://wa.me/51966756553"
-                target="_blank"
-                class="social-card"
-              >
-                <div class="social-icon">📱</div>
-                <div class="social-info">
-                  <h3>WhatsApp</h3>
-                  <p>La forma más rápida. Atención directa y soporte.</p>
-                </div>
-              </a>
-
-              <a
-                href="https://www.instagram.com/fungusllampa/"
-                target="_blank"
-                class="social-card"
-              >
-                <div class="social-icon">📸</div>
-                <div class="social-info">
-                  <h3>Instagram</h3>
-                  <p>
-                    Mira nuestros cultivos diarios y novedades @fungusllampa
-                  </p>
-                </div>
-              </a>
-
-              <a
-                href="https://www.facebook.com/profile.php?id=61582193777751"
-                target="_blank"
-                class="social-card"
-              >
-                <div class="social-icon">👍</div>
-                <div class="social-info">
-                  <h3>Facebook</h3>
-                  <p>Únete a nuestra comunidad en FB.</p>
-                </div>
-              </a>
-            </div>
-
-            <div class="contact-info-side">
-              <h2>¿Tienes dudas?</h2>
+          <header class="section-header">
+            <h2 class="category-title">Banco de Genéticas</h2>
+            <div class="description-top">
               <p>
-                En <strong>FungusLlampa</strong> entendemos que la micología
-                puede ser compleja al inicio. Si no estás seguro de qué genética
-                elegir o qué kit se adapta mejor a tu espacio, escríbenos.
-              </p>
-              <br />
-              <p>
-                <strong>Horario de Atención:</strong><br />
-                Lunes a Sábado: 9:00 AM - 8:00 PM<br />
-                Domingos: Previa coordinación.
-              </p>
-              <br />
-              <p style="font-size: 0.9rem; color: #888">
-                <em
-                  >*Todos los envíos se realizan con absoluta discreción y
-                  garantías de esterilidad.</em
-                >
+                Selecciona tu genética. Disponible en Cultura Líquida, Grano,
+                Kit o Placa.
               </p>
             </div>
+          </header>
+
+          <div class="product-grid-4col">
+            <article
+              class="product-item"
+              onclick="openModal(this)"
+              data-category="cepas"
+              data-name="B+ (Be Positive)"
+              data-price="S/.70"
+              data-img="img/b-plus.webp"
+              data-desc="Un clásico indiscutible. La B+ es famosa por su versatilidad y sus frutos de gran tamaño."
+            >
+              <div class="img-container">
+                <img src="img/b-plus.webp" alt="B+" />
+              </div>
+              <div class="info-box">
+                <h3>B+</h3>
+                <p class="price">Desde S/.70</p>
+              </div>
+            </article>
+
+            <article
+              class="product-item"
+              onclick="openModal(this)"
+              data-category="cepas"
+              data-name="Albino Makilla Gorilla"
+              data-price="S/.90"
+              data-img="img/albino-makilla.webp"
+              data-desc="Aislamiento albino de la potente Makilla Gorilla. Frutos densos como rocas."
+            >
+              <div class="img-container">
+                <img src="img/albino-makilla.webp" alt="Albino Makilla" />
+              </div>
+              <div class="info-box">
+                <h3>Albino Makilla</h3>
+                <p class="price">Desde S/.90</p>
+              </div>
+            </article>
+
+            <article
+              class="product-item"
+              onclick="openModal(this)"
+              data-category="cepas"
+              data-name="APE Revert"
+              data-price="S/.90"
+              data-img="img/ape-revert.webp"
+              data-desc="Albino Penis Envy Revert. Cepa estabilizada que ha vuelto a esporular."
+            >
+              <div class="img-container">
+                <img src="img/ape-revert.webp" alt="APE Revert" />
+              </div>
+              <div class="info-box">
+                <h3>APE Revert</h3>
+                <p class="price">Desde S/.90</p>
+              </div>
+            </article>
+
+            <article
+              class="product-item"
+              onclick="openModal(this)"
+              data-category="cepas"
+              data-name="Shakti"
+              data-price="S/.95"
+              data-img="img/shakti.webp"
+              data-desc="Rareza albina de la costa Malabar. Frutos fantasmales y branquias onduladas."
+            >
+              <div class="img-container">
+                <img src="img/shakti.webp" alt="Shakti" />
+              </div>
+              <div class="info-box">
+                <h3>Shakti</h3>
+                <p class="price">Desde S/.95</p>
+              </div>
+            </article>
+
+            <article
+              class="product-item"
+              onclick="openModal(this)"
+              data-category="cepas"
+              data-name="P. Natalensis"
+              data-price="S/.100"
+              data-img="img/natalensis.webp"
+              data-desc="Especie distinta a Cubensis. Micelio ultra agresivo."
+            >
+              <div class="img-container">
+                <img src="img/natalensis.webp" alt="Natalensis" />
+              </div>
+              <div class="info-box">
+                <h3>P. Natalensis</h3>
+                <p class="price">Desde S/.100</p>
+              </div>
+            </article>
+
+            <article
+              class="product-item"
+              onclick="openModal(this)"
+              data-category="cepas"
+              data-name="Melmak Penis Envy"
+              data-price="S/.90"
+              data-img="img/melmak-pe.webp"
+              data-desc="Versión original del PE mejorada. Frutos gnarly y retorcidos."
+            >
+              <div class="img-container">
+                <img src="img/melmak-pe.webp" alt="Melmak PE" />
+              </div>
+              <div class="info-box">
+                <h3>Melmak PE</h3>
+                <p class="price">Desde S/.90</p>
+              </div>
+            </article>
+
+            <article
+              class="product-item"
+              onclick="openModal(this)"
+              data-category="cepas"
+              data-name="Melmak Revert APE"
+              data-price="S/.90"
+              data-img="img/melmak-revert.webp"
+              data-desc="Mutación estabilizada que retorna a la morfología clásica."
+            >
+              <div class="img-container">
+                <img src="img/melmak-revert.webp" alt="Melmak Revert" />
+              </div>
+              <div class="info-box">
+                <h3>Melmak Revert APE</h3>
+                <p class="price">Desde S/.90</p>
+              </div>
+            </article>
+
+            <article
+              class="product-item"
+              onclick="openModal(this)"
+              data-category="cepas"
+              data-name="Melmak Revert Albino"
+              data-price="S/.95"
+              data-img="img/melmak-albino.webp"
+              data-desc="Blanco puro y azulamiento instantáneo. Joya de la corona."
+            >
+              <div class="img-container">
+                <img src="img/melmak-albino.webp" alt="Melmak Albino" />
+              </div>
+              <div class="info-box">
+                <h3>Melmak Albino</h3>
+                <p class="price">Desde S/.95</p>
+              </div>
+            </article>
+
+            <article
+              class="product-item"
+              onclick="openModal(this)"
+              data-category="cepas"
+              data-name="Hilly Billy"
+              data-price="S/.70"
+              data-img="img/hilly-billy.webp"
+              data-desc="Ganadora de copas recientes. Crecimiento voraz."
+            >
+              <div class="img-container">
+                <img src="img/hilly-billy.webp" alt="HillyBilly" />
+              </div>
+              <div class="info-box">
+                <h3>Hilly Billy</h3>
+                <p class="price">Desde S/.70</p>
+              </div>
+            </article>
+
+            <article
+              class="product-item"
+              onclick="openModal(this)"
+              data-category="cepas"
+              data-name="MRA"
+              data-price="S/.80"
+              data-img="img/mra.webp"
+              data-desc="Genética seleccionada por su rizomorfismo agresivo en placa."
+            >
+              <div class="img-container">
+                <img src="img/mra.webp" alt="MRA" />
+              </div>
+              <div class="info-box">
+                <h3>MRA</h3>
+                <p class="price">Desde S/.80</p>
+              </div>
+            </article>
+
+            <article
+              class="product-item"
+              onclick="openModal(this)"
+              data-category="cepas"
+              data-name="Mystery Albino Revert"
+              data-price="S/.85"
+              data-img="img/mystery-albino.webp"
+              data-desc="Un enigma genético de origen desconocido."
+            >
+              <div class="img-container">
+                <img src="img/mystery-albino.webp" alt="Mystery Albino" />
+              </div>
+              <div class="info-box">
+                <h3>Mystery Albino</h3>
+                <p class="price">Desde S/.85</p>
+              </div>
+            </article>
+
+            <article
+              class="product-item"
+              onclick="openModal(this)"
+              data-category="cepas"
+              data-name="Cepa X"
+              data-price="S/.75"
+              data-img="img/cepa-x.webp"
+              data-desc="Cruce experimental de nuestro laboratorio."
+            >
+              <div class="img-container">
+                <img src="img/cepa-x.webp" alt="Cepa X" />
+              </div>
+              <div class="info-box">
+                <h3>Cepa X</h3>
+                <p class="price">Desde S/.75</p>
+              </div>
+            </article>
+
+            <article
+              class="product-item"
+              onclick="openModal(this)"
+              data-category="cepas"
+              data-name="Cepa XX"
+              data-price="S/.75"
+              data-img="img/cepa-xx.webp"
+              data-desc="Segunda línea experimental. Fenotipos masivos."
+            >
+              <div class="img-container">
+                <img src="img/cepa-xx.webp" alt="Cepa XX" />
+              </div>
+              <div class="info-box">
+                <h3>Cepa XX</h3>
+                <p class="price">Desde S/.75</p>
+              </div>
+            </article>
           </div>
         </div>
       </section>
@@ -99,7 +277,7 @@
           <h3>FungusLlampa</h3>
           <p>
             Micología profesional en Lima. Llevando la ciencia y el respeto por
-            los hongos a tu hogar con la mejor genética y equipamiento.
+            los hongos a tu hogar.
           </p>
         </div>
 
@@ -115,12 +293,9 @@
         <div class="footer-col">
           <div class="legal-notice">
             <strong>Aviso Legal Importante:</strong><br /><br />
-            Los productos ofrecidos por FungusLlampa (esporas, cultivos
-            líquidos) están destinados exclusivamente para fines de observación
-            microscópica, colección taxonómica y preservación genética.<br /><br />
-            No proporcionamos asesoramiento sobre el cultivo para consumo
-            humano. Al adquirir nuestros productos, confirmas ser mayor de 18
-            años.
+            Los productos ofrecidos se venden exclusivamente para fines de
+            observación microscópica, colección taxonómica y preservación
+            genética.
           </div>
         </div>
       </div>
@@ -128,6 +303,25 @@
         &copy; 2026 FungusLlampa. Todos los derechos reservados.
       </div>
     </footer>
+
+    <div id="productModal" class="modal">
+      <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <div class="modal-body">
+          <div class="modal-img-wrapper"></div>
+          <div class="modal-details">
+            <h2 id="modal-title">Nombre del Producto</h2>
+            <p id="modal-price" class="modal-price">S/.00</p>
+            <div id="modal-desc" class="modal-description"></div>
+            <div class="modal-selectors">
+              <label id="selector-label">Opciones:</label>
+              <select id="variant-select"></select>
+            </div>
+            <button class="add-cart-btn">Añadir al Carrito</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="cart-icon" onclick="toggleCart()">
       🛒 <span id="cart-count">0</span>
@@ -142,7 +336,7 @@
         </div>
         <div class="cart-footer">
           <div class="total-row">
-            <span>Total:</span>
+            <span>Total Aprox:</span>
             <span id="cart-total">S/.0.00</span>
           </div>
           <button class="checkout-btn" onclick="sendToWhatsapp()">
