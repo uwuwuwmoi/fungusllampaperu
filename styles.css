@@ -6,13 +6,22 @@
 }
 
 body {
-  background-image: url("img/imghero-bg.webp");
-  background-size: 100% auto;
-  background-position: top center;
-  background-attachment: scroll;
-  background-repeat: repeat-y;
+  /* --- AJUSTE DE FONDO GLOBAL (Index + General) --- */
+  background-image: url("img/imgheroseamlessborders.webp");
+  
+  /* Tamaño fijo (450px) para que los hongos se vean completos y no gigantes */
+  background-size: 450px auto; 
+  
+  /* Empieza desde la esquina superior izquierda para no cortar la imagen inicial */
+  background-position: top left;
+  
+  /* Se queda quieto al hacer scroll */
+  background-attachment: fixed;
+  
+  /* Se repite en mosaico */
+  background-repeat: repeat;
+  
   background-color: #f4f4f4;
-
   color: #333;
   font-family: "Roboto", sans-serif;
   overflow-x: hidden;
@@ -80,59 +89,65 @@ main {
   font-size: 4rem;
   color: #d4af37;
   margin-bottom: 5px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
   line-height: 1.2;
   text-align: center;
 }
 
-/* --- FONDO ESPECÍFICO PARA CEPAS (SEAMLESS & STATIC) --- */
+/* --- FONDO ESPECÍFICO PARA CEPAS --- */
+/* Hereda las propiedades del body, pero aseguramos la imagen */
 #cepas-bg {
-  /* Asegúrate de que este archivo exista en tu carpeta img */
   background-image: url("img/imgheroseamlessborders.webp");
-  background-repeat: repeat;
-  /* 'auto' usa el tamaño real de la imagen para que el patrón se vea bien */
-  background-size: auto; 
+  background-size: 450px auto;
+  background-position: top left;
   background-attachment: fixed;
-  background-position: center top;
+  background-repeat: repeat;
 }
 
-/* --- CORRECCIÓN DE VISIBILIDAD Y ESPACIADO (TITULOS) --- */
+/* --- ESTILO DE TEXTO: BLANCO CON BORDE NEGRO --- */
 /* Aplica a: Banco de Genéticas, Síguenos y Explorar Categorías */
 #cepas-bg .category-title,
 .contact-section .category-title,
 .categories-section .category-title,
 .section-header .category-title {
-  color: #111 !important; /* Negro intenso */
-  /* Halo blanco sólido alrededor del texto para separarlo del fondo */
+  color: #fff !important; /* Texto Blanco */
+  
+  /* Borde Negro Sólido (simulado con sombras múltiples) */
   text-shadow: 
-    3px 3px 0 #fff, 
-    -2px -2px 0 #fff, 
-    2px -2px 0 #fff, 
-    -2px 2px 0 #fff, 
-    2px 2px 0 #fff !important;
+    3px 0 0 #000, 
+    -3px 0 0 #000, 
+    0 3px 0 #000, 
+    0 -3px 0 #000, 
+    2px 2px 0 #000, 
+    -2px -2px 0 #000, 
+    2px -2px 0 #000, 
+    -2px 2px 0 #000 !important;
+    
   text-align: center;
 }
 
-/* Corrección específica de espaciado para "Síguenos" */
+/* Corrección de espaciado para "Síguenos" */
 .contact-section .category-title {
-  margin-bottom: 50px !important; /* Aumentado para evitar que choque con las tarjetas */
+  margin-bottom: 50px !important; 
   display: block;
 }
 
-/* --- CORRECCIÓN DE VISIBILIDAD (SUBTITULOS) --- */
+/* Subtítulos (Pequeños) - También ajustados */
 .description-top,
 #cepas-bg .description-top,
 .section-header p {
   font-family: "Playfair Display", serif;
   font-size: 1.2rem;
-  /* Color oscuro + pequeño halo blanco */
-  color: #222 !important;
-  text-shadow: 1px 1px 0 #fff, -1px -1px 0 #fff; 
+  color: #fff !important; /* Texto blanco */
+  /* Borde negro fino */
+  text-shadow: 
+    1px 1px 0 #000, 
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000; 
   margin-bottom: 40px;
   text-align: center;
   font-weight: 600;
 }
-
 
 /* --- HERO SECTION (PC - Original) --- */
 .hero-split-section {
@@ -235,7 +250,7 @@ main {
   display: block;
 }
 
-/* --- NUEVA SECCIÓN: CATEGORÍAS (Estilo Carrusel) --- */
+/* --- SECCIÓN CATEGORÍAS --- */
 .categories-section {
   padding: 40px 20px;
   margin-bottom: 20px;
@@ -273,7 +288,7 @@ main {
 .cat-icon {
   font-size: 3rem;
   margin-bottom: 15px;
-  background-color: #fff8e1; /* Fondo suave dorado */
+  background-color: #fff8e1;
   width: 80px;
   height: 80px;
   display: flex;
@@ -344,12 +359,20 @@ main {
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  background-color: #fff; /* Asegura fondo blanco si la imagen tiene padding */
 }
 .story-image-side img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+/* --- AJUSTE LOGO FUNGUS LLAMPA (EL ORIGEN) --- */
+/* Busca la imagen que tenga "story-origen" en su nombre y le da espacio */
+img[src*="story-origen"] {
+    object-fit: contain !important; /* Evita que se recorte */
+    padding: 30px !important; /* Aleja los bordes */
 }
 
 /* --- GRID PRODUCTOS --- */
@@ -859,27 +882,24 @@ main {
   .hero-grid {
     display: flex;
     flex-direction: column;
-    gap: 0; /* Sin espacio entre texto e imagen */
-
-    /* El contenedor ahora es la tarjeta blanca unificada */
+    gap: 0;
     background-color: rgba(255, 255, 255, 0.95);
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    overflow: hidden; /* Asegura bordes redondos */
+    overflow: hidden;
     padding: 0;
   }
 
-  /* TEXTO DEL HERO */
   .hero-text-content {
     text-align: center;
-    padding: 40px 30px 20px; /* Padding interno */
-    background-color: transparent; /* Fondo transparente (ya lo tiene el padre) */
-    box-shadow: none; /* Quitamos sombra individual */
-    border-radius: 0; /* Quitamos bordes individuales */
+    padding: 40px 30px 20px;
+    background-color: transparent;
+    box-shadow: none;
+    border-radius: 0;
   }
 
   .hero-main-title {
-    font-size: 2.2rem; /* Tamaño ajustado para móvil */
+    font-size: 2.2rem;
     line-height: 1.2;
   }
 
@@ -887,29 +907,26 @@ main {
     font-size: 1rem;
   }
 
-  /* Botones centrados */
   .hero-buttons {
     justify-content: center;
     margin-top: 15px;
   }
 
-  /* IMAGEN DEL HERO */
   .hero-image-container {
     width: 100%;
-    height: 300px; /* Altura fija para mantener proporción */
-    border-radius: 0; /* Sin bordes redondos propios (usa el del padre) */
+    height: 300px;
+    border-radius: 0;
     box-shadow: none;
     margin-top: 0;
   }
 
-  /* === SECCIONES DE HISTORIA (ORIGEN, ETC) === */
-  /* Se mantienen como tarjetas independientes */
+  /* === SECCIONES DE HISTORIA === */
   .story-row,
   .story-row.reverse {
     flex-direction: column;
     gap: 0;
     margin-bottom: 40px;
-    background-color: rgba(255, 255, 255, 0.95); /* Fondo blanco propio */
+    background-color: rgba(255, 255, 255, 0.95);
     border-radius: 20px;
     padding: 0;
     overflow: hidden;
@@ -931,7 +948,7 @@ main {
   .story-image-side {
     width: 100%;
     height: 250px;
-    border-radius: 0; /* Imagen llena la parte inferior */
+    border-radius: 0;
     box-shadow: none;
   }
 
