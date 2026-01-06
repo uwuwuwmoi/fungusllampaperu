@@ -6,21 +6,21 @@
 }
 
 body {
-  /* --- AJUSTE DE FONDO (Grande, sin cortes laterales, repite solo abajo) --- */
+  /* --- AJUSTE DE FONDO (Grande, sin cortes, repite solo abajo) --- */
   background-image: url("img/imgheroseamlessborders.jpg");
-  
-  /* 100% de ancho para que se vea GRANDE y ajuste a la pantalla */
-  background-size: 100% auto; 
-  
+
+  /* 100% de ancho para que se vea GRANDE y ocupe toda la pantalla */
+  background-size: 100% auto;
+
   /* Empieza arriba al centro para NO CORTAR los hongos superiores */
   background-position: top center;
-  
+
   /* Repite solo verticalmente */
   background-repeat: repeat-y;
-  
-  /* Fondo fijo para efecto elegante (o cámbialo a 'scroll' si prefieres que se mueva) */
+
+  /* Fondo fijo para efecto elegante */
   background-attachment: fixed;
-  
+
   background-color: #f4f4f4;
   color: #333;
   font-family: "Roboto", sans-serif;
@@ -94,30 +94,26 @@ main {
   margin-bottom: 20px;
   line-height: 1.2;
   text-align: center;
-  
+
   /* Letra Negra con Halo Blanco Fuerte (Para legibilidad sin caja) */
-  color: #111 !important; 
-  text-shadow: 
-    3px 3px 0 #fff, 
-    -2px -2px 0 #fff, 
-    2px -2px 0 #fff, 
-    -2px 2px 0 #fff, 
-    2px 2px 0 #fff !important;
+  color: #111 !important;
+  text-shadow: 3px 3px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff,
+    -2px 2px 0 #fff, 2px 2px 0 #fff !important;
 }
 
 /* --- ESTILO "CAJA BLANCA" PARA SUBTÍTULOS --- */
-/* Aplica a las descripciones en Cepas y en Index */
+/* Aplica a las descripciones en Cepas, Index y Contacto */
 .description-top p,
 .section-header p {
-  background-color: #fff;     /* Fondo Blanco */
-  display: inline-block;      /* La caja se ajusta al texto */
-  padding: 15px 30px;         /* Espacio interno */
-  border-radius: 50px;        /* Bordes redondeados (estilo píldora) */
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15); /* Sombra suave */
-  
+  background-color: #fff; /* Fondo Blanco */
+  display: inline-block; /* La caja se ajusta al texto */
+  padding: 15px 30px; /* Espacio interno */
+  border-radius: 50px; /* Bordes redondeados (estilo píldora) */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Sombra suave */
+
   /* Texto Negro Limpio */
   color: #000 !important;
-  text-shadow: none !important; 
+  text-shadow: none !important;
   font-family: "Roboto", sans-serif;
   font-size: 1.1rem;
   font-weight: 500;
@@ -132,19 +128,17 @@ main {
 
 /* Ajuste específico para el contenedor en Index */
 .section-header p {
-  margin-bottom: 0; /* El margen lo maneja el header */
+  margin-bottom: 0;
 }
-
 
 /* --- FONDO ESPECÍFICO PARA CEPAS --- */
 #cepas-bg {
-  /* Hereda del body, pero aseguramos la configuración */
+  /* Hereda del body pero forzamos el comportamiento */
   background-size: 100% auto;
   background-position: top center;
   background-repeat: repeat-y;
   background-attachment: fixed;
 }
-
 
 /* --- HERO SECTION (PC) --- */
 .hero-split-section {
@@ -238,13 +232,15 @@ main {
   border-radius: 30px;
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-  background-color: #fff;
+  background-color: #fff; /* Se queda blanco puro */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+/* OCULTAMOS LA IMAGEN DEL HERO PARA QUE QUEDE SOLO EL FONDO BLANCO */
 .hero-image-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+  display: none;
 }
 
 /* --- SECCIÓN CATEGORÍAS --- */
@@ -367,8 +363,8 @@ main {
 
 /* --- AJUSTE LOGO FUNGUS LLAMPA (EL ORIGEN) --- */
 img[src*="story-origen"] {
-    object-fit: contain !important; 
-    padding: 30px !important; 
+  object-fit: contain !important;
+  padding: 30px !important;
 }
 
 /* --- GRID PRODUCTOS --- */
@@ -874,9 +870,8 @@ img[src*="story-origen"] {
 
 /* --- RESPONSIVE (MÓVIL) --- */
 @media (max-width: 900px) {
-  /* Fondo para móvil: asegurar que se vea bien */
   body {
-      background-size: 100%; /* Ajuste al ancho del móvil */
+    background-size: 100%;
   }
 
   /* === HERO SECTION: ESTILO UNIFICADO (TARJETA ÚNICA) === */
