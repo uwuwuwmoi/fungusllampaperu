@@ -1,7 +1,7 @@
 // --- CONFIGURACIÓN ---
 const phoneNumber = "51966756553";
 
-// --- IMÁGENES GENÉRICAS DE INSUMOS (PLACEHOLDERS LOCALES) ---
+// --- IMÁGENES GENÉRICAS DE INSUMOS ---
 const INSUMO_IMAGES = {
   kit: [
     "img/kit-cultivo-1.webp",
@@ -12,41 +12,54 @@ const INSUMO_IMAGES = {
   agar: ["img/placa-petri-1.webp", "img/placa-petri-2.webp"],
 };
 
-// --- DATOS DE VARIANTES ---
-const productVariants = {
-  cepas: {
-    options: [
-      "Cultura Líquida (LC)",
-      "Grano (Spawn)",
-      "Kit de Cultivo",
-      "Placa Petri (Agar)",
-    ],
-    details: {
-      "Cultura Líquida (LC)": {
-        fixedPrice: 70,
-        text: "Jeringa de 10ml con micelio vivo de esta genética específica. Ideal para inocular tus propios frascos.",
-        imageType: "strain",
-      },
-      "Grano (Spawn)": {
-        fixedPrice: 90,
-        text: "Bolsa de 1kg de grano esterilizado 100% colonizado con esta genética. Listo para mezclar con sustrato.",
-        imageType: "spawn",
-      },
-      "Kit de Cultivo": {
-        fixedPrice: 180,
-        text: "Sistema todo en uno colonizado con esta genética. Incluye grano, sustrato y caja de fructificación.",
-        imageType: "kit",
-      },
-      "Placa Petri (Agar)": {
-        fixedPrice: 35,
-        text: "Placa de agar con micelio aislado de esta genética. Perfecta para clonación o expansión (G2G).",
-        imageType: "agar",
-      },
-    },
+// --- PRECIOS Y TEXTOS (LÓGICA MANUAL) ---
+// Estructura: { regular: PrecioNormal, preventa: PrecioOferta }
+const PRICING = {
+  clasica: {
+    lc: { regular: 85, preventa: 75 }, // Termina en 5
+    spawn: { regular: 110, preventa: 95 }, // Solicitado explícitamente
+    kit: { regular: 130, preventa: 115 }, // Termina en 5
+    agar: { regular: 99, preventa: 85 }, // Bajada atractiva
   },
-  default: {
-    options: ["Estándar"],
-    details: { Estándar: { priceMod: 0, text: "Producto seleccionado." } },
+  exotica: {
+    lc: { regular: 160, preventa: 139 }, // Termina en 9
+    spawn: { regular: 189, preventa: 165 }, // Termina en 5
+    kit: { regular: 199, preventa: 179 }, // De 3 dígitos a oferta atractiva
+    agar: { regular: 179, preventa: 155 }, // Termina en 5
+  },
+};
+
+const FORMAT_DETAILS = {
+  "Cultura Líquida (LC)": {
+    key: "lc",
+    text: "Jeringa estéril de 10ml con micelio vivo de esta genética específica. Ideal para inocular tus propios frascos.",
+    imageType: "strain",
+  },
+  "Grano (Spawn)": {
+    key: "spawn",
+    text: "Mushbag de 1Kg de grano esterilizado 100% colonizado y libre de contaminación. Listo para mezclar con sustrato o transferencias.",
+    imageType: "spawn",
+  },
+  "Kit de Cultivo": {
+    key: "kit",
+    text: "Sistema todo en uno colonizado. Incluye grano, sustrato y bolsa con filtro anti-contaminantes y guía constante. Sin pasos difíciles y automático. Ideal para empezar.",
+    imageType: "kit",
+  },
+  "Placa Petri (Agar)": {
+    key: "agar",
+    text: "Placa de agar con micelio aislado de esta genética. Perfecta para usuarios más avanzados.",
+    imageType: "agar",
+  },
+};
+
+const TYPE_INFO = {
+  clasica: {
+    title: "¿Qué significa cepa clásica?",
+    text: "Son genéticas antiguas, estabilizadas y de confianza mundial. Conocidas por su resistencia y resultados predecibles. Ideales para estudios estándar y principiantes.",
+  },
+  exotica: {
+    title: "¿Qué significa cepa exótica?",
+    text: "Genéticas importadas de reciente aislamiento o mutaciones raras. Se caracterizan por morfologías únicas y una mayor concentración etnobotánica. Selección exclusiva para coleccionistas.",
   },
 };
 
@@ -68,95 +81,119 @@ function saveCart() {
 // --- FUNCIONES DEL MODAL ---
 function openModal(element) {
   const modal = document.getElementById("productModal");
-  const category = element.getAttribute("data-category") || "default";
 
-  // Guardar datos base
+  // Obtener datos del HTML
   currentProduct = {
     name: element.getAttribute("data-name"),
-    basePrice: parseFloat(
-      element.getAttribute("data-price").replace("S/.", "")
-    ),
-    baseDesc: element.getAttribute("data-desc"),
+    type: element.getAttribute("data-type"), // 'clasica' o 'exotica'
+    strainDesc: element.getAttribute("data-desc"),
     strainImg: element
       .getAttribute("data-img")
       .split(",")
       .map((img) => img.trim()),
-    category: category,
   };
 
   document.getElementById("modal-title").innerText = currentProduct.name;
-
-  setupVariantSelect(category);
+  setupVariantSelect();
   modal.style.display = "flex";
 }
 
-function setupVariantSelect(category) {
+function setupVariantSelect() {
   const select = document.getElementById("variant-select");
-  const label = document.getElementById("selector-label");
-  const selectorsDiv = document.querySelector(".modal-selectors");
+  const options = Object.keys(FORMAT_DETAILS);
 
-  // Asegurarnos de que el selector sea visible
-  if (selectorsDiv) selectorsDiv.style.display = "block";
+  select.innerHTML = "";
+  options.forEach((opt) => {
+    const optionElement = document.createElement("option");
+    optionElement.value = opt;
+    optionElement.innerText = opt;
+    select.appendChild(optionElement);
+  });
 
-  if (select) {
-    select.innerHTML = "";
-    let variantKey = productVariants[category] ? category : "default";
-    const variantInfo = productVariants[variantKey];
-
-    if (category === "cepas") label.innerText = "Formato:";
-    else label.innerText = "Opción:";
-
-    variantInfo.options.forEach((opt) => {
-      const optionElement = document.createElement("option");
-      optionElement.value = opt;
-      optionElement.innerText = opt;
-      select.appendChild(optionElement);
-    });
-
-    select.onchange = () => updateModalDetails(category, select.value);
-    updateModalDetails(category, select.value);
-  } else {
-    updateModalDetails(category, null);
-  }
+  select.onchange = () => updateModalDetails(select.value);
+  updateModalDetails(select.value); // Cargar primera opción
 }
 
-function updateModalDetails(category, selectedOption) {
+function updateModalDetails(selectedOption) {
   const priceElement = document.getElementById("modal-price");
   const descElement = document.getElementById("modal-desc");
 
-  if (!productVariants[category] || !selectedOption) {
-    priceElement.innerText = "S/." + currentProduct.basePrice.toFixed(2);
-    descElement.innerHTML = currentProduct.baseDesc;
+  const formatData = FORMAT_DETAILS[selectedOption];
+  const type = currentProduct.type || "clasica";
+  const typeData = TYPE_INFO[type];
+
+  // 1. Obtener precios del objeto PRICING
+  const prices = PRICING[type][formatData.key];
+  const regularPrice = prices.regular;
+  const preventaPrice = prices.preventa;
+
+  currentProduct.currentPrice = regularPrice;
+  currentProduct.currentVariety = selectedOption;
+
+  // 2. Actualizar Precio Principal (Regular)
+  priceElement.innerText = regularPrice.toFixed(2);
+
+  // 3. Generar HTML del acordeón
+  descElement.innerHTML = `
+    <div class="product-info-block">
+        <p class="main-desc">${formatData.text}</p>
+    </div>
+
+    <div class="accordion-wrapper">
+        <button class="accordion-btn" onclick="toggleAccordion(this)">
+            Precio por preventa <span class="arrow">▼</span>
+        </button>
+        <div class="panel">
+            <div class="preventa-content">
+                <p class="price-comparison">
+                    <span class="strikethrough">${regularPrice.toFixed(
+                      2
+                    )}</span> 
+                    <span class="highlight-price">${preventaPrice.toFixed(
+                      2
+                    )}</span>
+                </p>
+                <p class="small-text">Reserva tu producto ahora a un precio reducido. El producto estará disponible en la fecha estimada (7-14 días hábiles).</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-wrapper">
+        <button class="accordion-btn" onclick="toggleAccordion(this)">
+            ${typeData.title} <span class="arrow">▼</span>
+        </button>
+        <div class="panel">
+            <p class="small-text">${typeData.text}</p>
+        </div>
+    </div>
+    
+    <div class="variant-note">
+        <p>Añade al carrito para consultar por WhatsApp</p>
+    </div>
+  `;
+
+  // 4. Actualizar Imágenes
+  if (formatData.imageType === "strain")
     currentImages = currentProduct.strainImg;
-    setupCarousel();
-    return;
-  }
+  else if (FORMAT_DETAILS[selectedOption])
+    currentImages = INSUMO_IMAGES[formatData.imageType] || [];
 
-  const details = productVariants[category].details[selectedOption];
+  currentSlideIndex = 0;
+  setupCarousel();
+}
 
-  if (details) {
-    let finalPrice = details.fixedPrice
-      ? details.fixedPrice
-      : currentProduct.basePrice + (details.priceMod || 0);
-    priceElement.innerText = "S/." + finalPrice.toFixed(2);
-    currentProduct.currentPrice = finalPrice;
+// --- LÓGICA ACORDEÓN ---
+function toggleAccordion(btn) {
+  btn.classList.toggle("active");
+  const panel = btn.nextElementSibling;
+  const arrow = btn.querySelector(".arrow");
 
-    if (category === "cepas") {
-      descElement.innerHTML = `<p><strong>${currentProduct.name} - ${selectedOption}</strong></p><br><p>${details.text}</p><br><p><em>Características de la cepa:</em> ${currentProduct.baseDesc}</p>`;
-
-      if (details.imageType === "strain")
-        currentImages = currentProduct.strainImg;
-      else if (details.imageType === "kit") currentImages = INSUMO_IMAGES.kit;
-      else if (details.imageType === "spawn")
-        currentImages = INSUMO_IMAGES.spawn;
-      else if (details.imageType === "agar") currentImages = INSUMO_IMAGES.agar;
-    } else {
-      descElement.innerHTML = `<p>${currentProduct.baseDesc}</p><br><p>${details.text}</p>`;
-      currentImages = currentProduct.strainImg;
-    }
-
-    currentSlideIndex = 0;
-    setupCarousel();
+  if (panel.style.maxHeight) {
+    panel.style.maxHeight = null;
+    arrow.style.transform = "rotate(0deg)";
+  } else {
+    panel.style.maxHeight = panel.scrollHeight + "px";
+    arrow.style.transform = "rotate(180deg)";
   }
 }
 
@@ -165,8 +202,10 @@ function setupCarousel() {
   const imgWrapper = document.querySelector(".modal-img-wrapper");
   imgWrapper.innerHTML = "";
 
-  if (currentImages.length === 1) {
-    imgWrapper.innerHTML = `<img src="${currentImages[0]}" alt="${currentProduct.name}" class="modal-static-img">`;
+  if (currentImages.length === 0 || currentImages.length === 1) {
+    const src =
+      currentImages.length === 1 ? currentImages[0] : "img/placeholder.webp";
+    imgWrapper.innerHTML = `<img src="${src}" alt="${currentProduct.name}" class="modal-static-img">`;
   } else {
     let slidesHTML = "";
     currentImages.forEach((img, index) => {
@@ -207,15 +246,11 @@ window.onclick = function (event) {
 const standardBtn = document.querySelector(".add-cart-btn");
 if (standardBtn) {
   standardBtn.addEventListener("click", function () {
-    const select = document.getElementById("variant-select");
-    const selectedVariety = select ? select.value : "Estándar";
-    const priceToAdd = currentProduct.currentPrice || currentProduct.basePrice;
-
     const item = {
       id: Date.now(),
       name: currentProduct.name,
-      price: priceToAdd,
-      variety: selectedVariety,
+      price: currentProduct.currentPrice,
+      variety: currentProduct.currentVariety,
     };
 
     cart.push(item);
@@ -239,7 +274,7 @@ function renderCartItems() {
   container.innerHTML = "";
   if (cart.length === 0) {
     container.innerHTML = "<p class='empty-msg'>Tu carrito está vacío.</p>";
-    document.getElementById("cart-total").innerText = "S/.0.00";
+    document.getElementById("cart-total").innerText = "0.00";
     return;
   }
   let total = 0;
@@ -250,11 +285,11 @@ function renderCartItems() {
     div.innerHTML = `
       <div class="item-info"><h4>${item.name}</h4><span>${
       item.variety
-    }</span><div><strong>S/.${item.price.toFixed(2)}</strong></div></div>
+    }</span><div><strong>${item.price.toFixed(2)}</strong></div></div>
       <span class="remove-item" onclick="removeFromCart(${item.id})">🗑️</span>`;
     container.appendChild(div);
   });
-  document.getElementById("cart-total").innerText = "S/." + total.toFixed(2);
+  document.getElementById("cart-total").innerText = total.toFixed(2);
 }
 
 function updateCartUI() {
@@ -282,10 +317,10 @@ function sendToWhatsapp() {
   let total = 0;
   cart.forEach((item, i) => {
     total += item.price;
-    message += `${i + 1}. *${item.name}* - ${item.variety} (S/.${
-      item.price
-    })%0A`;
+    message += `${i + 1}. *${item.name}* - ${item.variety} (${item.price})%0A`;
   });
-  message += `%0A*TOTAL: S/.${total.toFixed(2)}*%0A%0AMétodo de pago?`;
+  message += `%0A*TOTAL: ${total.toFixed(
+    2
+  )}*%0A%0AMe gustaría más información sobre estos productos`;
   window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
 }
