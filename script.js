@@ -77,6 +77,15 @@ function saveCart() {
   localStorage.setItem("magikCart", JSON.stringify(cart));
 }
 
+// --- MANEJO DEL BOTÓN ATRÁS (HISTORIAL) ---
+window.addEventListener("popstate", function (event) {
+  const modal = document.getElementById("productModal");
+  // Si el modal está visible, lo cerramos visualmente
+  if (modal.style.display === "flex") {
+    modal.style.display = "none";
+  }
+});
+
 // --- FUNCIONES DEL MODAL ---
 function openModal(element) {
   const modal = document.getElementById("productModal");
@@ -92,10 +101,40 @@ function openModal(element) {
       .map((img) => img.trim()),
   };
 
-  document.getElementById("modal-title").innerText = currentProduct.name;
+  const titleElement = document.getElementById("modal-title");
+  titleElement.innerText = currentProduct.name;
+
+  // CAMBIO DE COLOR EN EL TÍTULO (NOMBRE) SI ES EXÓTICA
+  if (currentProduct.type === "exotica") {
+    titleElement.classList.add("exotica");
+  } else {
+    titleElement.classList.remove("exotica");
+  }
+
+  // Agregar estado al historial para que el botón "Atrás" cierre el modal
+  window.history.pushState({ modalOpen: true }, "", "");
+
   setupVariantSelect();
   modal.style.display = "flex";
 }
+
+function closeModal() {
+  // Al cerrar manualmente (con la X o botón), retrocedemos en el historial
+  // para quitar el estado 'modalOpen' y evitar conflictos futuros.
+  if (window.history.state && window.history.state.modalOpen) {
+    window.history.back();
+  } else {
+    document.getElementById("productModal").style.display = "none";
+  }
+}
+
+// Clic fuera del modal para cerrar
+window.onclick = function (event) {
+  const productModal = document.getElementById("productModal");
+  const cartModal = document.getElementById("cartModal");
+  if (event.target == productModal) closeModal();
+  if (event.target == cartModal) cartModal.style.display = "none";
+};
 
 function setupVariantSelect() {
   const select = document.getElementById("variant-select");
@@ -121,7 +160,7 @@ function updateModalDetails(selectedOption) {
   const type = currentProduct.type || "clasica";
   const typeData = TYPE_INFO[type];
 
-  // 1. Obtener precios del objeto PRICING
+  // 1. Obtener precios
   const prices = PRICING[type][formatData.key];
   const regularPrice = prices.regular;
   const preventaPrice = prices.preventa;
@@ -129,10 +168,10 @@ function updateModalDetails(selectedOption) {
   currentProduct.currentPrice = regularPrice;
   currentProduct.currentVariety = selectedOption;
 
-  // 2. Actualizar Precio Principal (Regular)
+  // 2. Actualizar Precio Principal (SIN S/.)
   priceElement.innerText = regularPrice.toFixed(2);
 
-  // 3. Generar HTML del acordeón (CON LA NOTA RESTAURADA)
+  // 3. Generar HTML del acordeón (SIN S/.)
   descElement.innerHTML = `
     <div class="product-info-block">
         <p class="main-desc">${formatData.text}</p>
@@ -230,17 +269,6 @@ function moveSlide(n) {
   slides[currentSlideIndex].style.display = "block";
 }
 
-function closeModal() {
-  document.getElementById("productModal").style.display = "none";
-}
-
-window.onclick = function (event) {
-  const productModal = document.getElementById("productModal");
-  const cartModal = document.getElementById("cartModal");
-  if (event.target == productModal) productModal.style.display = "none";
-  if (event.target == cartModal) cartModal.style.display = "none";
-};
-
 // --- AÑADIR AL CARRITO ---
 const standardBtn = document.querySelector(".add-cart-btn");
 if (standardBtn) {
@@ -318,8 +346,6 @@ function sendToWhatsapp() {
     total += item.price;
     message += `${i + 1}. *${item.name}* - ${item.variety} (${item.price})%0A`;
   });
-  message += `%0A*TOTAL: ${total.toFixed(
-    2
-  )}*%0A%0AMe gustaría más información sobre estos productos`;
+  message += `%0A*TOTAL: ${total.toFixed(2)}*%0A%0AMétodo de pago?`;
   window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
 }
