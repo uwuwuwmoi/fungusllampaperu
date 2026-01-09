@@ -6,7 +6,6 @@
 }
 
 body {
-  /* --- AJUSTE DE FONDO (Blanco Limpio) --- */
   background-color: #ffffff;
   background-image: none;
   color: #333;
@@ -392,13 +391,8 @@ main {
   font-weight: bold;
 }
 
-/* COLOR AMATISTA (VIOLETA) PARA EXÓTICAS */
-/* En el grid (precio/etiqueta) */
+/* COLOR AMATISTA (VIOLETA) PARA EXÓTICAS EN GRID */
 .product-item .price.exotica {
-  color: #9c27b0 !important;
-}
-/* En el modal (Título/Nombre del producto) */
-#modal-title.exotica {
   color: #9c27b0 !important;
 }
 
@@ -490,6 +484,7 @@ main {
   align-items: center;
   backdrop-filter: blur(5px);
 }
+
 .modal-content {
   background-color: #fff;
   color: #333;
@@ -501,10 +496,14 @@ main {
   box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
   animation: modalFadeIn 0.3s;
   padding: 0;
-  overflow: hidden;
   display: flex;
   flex-direction: row;
+
+  /* --- FIX DE SCROLL (ESCRITORIO) --- */
+  max-height: 90vh; /* Máximo 90% de pantalla */
+  overflow: hidden; /* No crece más allá de eso */
 }
+
 @keyframes modalFadeIn {
   from {
     opacity: 0;
@@ -516,7 +515,7 @@ main {
   }
 }
 
-/* ESTILOS DE LA X (CERRAR) - MODIFICADO: ABSOLUTE (NO STICKY) */
+/* ESTILOS DE LA X (CERRAR) */
 .close-btn {
   position: absolute;
   top: 15px;
@@ -525,10 +524,8 @@ main {
   font-size: 30px;
   font-weight: bold;
   cursor: pointer;
-  z-index: 2005; /* Más alto para estar siempre encima */
+  z-index: 2005;
   transition: color 0.3s;
-
-  /* Fondo blanco semitransparente para que se vea sobre imágenes */
   background: rgba(255, 255, 255, 0.8);
   width: 40px;
   height: 40px;
@@ -546,8 +543,9 @@ main {
   flex-direction: row;
   align-items: stretch;
   width: 100%;
-  min-height: 400px;
+  min-height: 0; /* Necesario para que el scroll anidado funcione */
 }
+
 .modal-img-wrapper {
   flex: 1.2;
   background-color: #f0f0f0;
@@ -606,6 +604,7 @@ main {
   right: 0;
   border-radius: 3px 0 0 3px;
 }
+
 .modal-details {
   flex: 1;
   padding: 40px;
@@ -613,21 +612,24 @@ main {
   flex-direction: column;
   justify-content: flex-start;
   text-align: left;
-  overflow-y: auto; /* Scroll vertical si el contenido es largo */
+  /* El scroll ocurre AQUÍ en escritorio */
+  overflow-y: auto;
+  height: 100%;
 }
+
 #modal-title {
   font-family: "Playfair Display", serif;
   font-size: 2.2rem;
-  color: #d4af37; /* Color por defecto (Clásica) */
+  color: #d4af37; /* Default (Clásica) */
   margin-bottom: 10px;
 }
+
 .modal-price {
   font-size: 1.8rem;
-  color: #333;
+  color: #333; /* SIEMPRE NEGRO */
   font-weight: bold;
   margin-bottom: 20px;
 }
-/* ELIMINADO EL ::BEFORE QUE PONÍA S/. */
 .modal-price::before {
   content: "";
 }
@@ -638,9 +640,11 @@ main {
 .modal-selectors label {
   display: block;
   margin-bottom: 8px;
-  color: #333;
+  color: #000; /* SIEMPRE NEGRO (Presentación) */
   font-size: 0.9rem;
+  font-weight: bold;
 }
+
 .modal-selectors select {
   width: 100%;
   padding: 12px;
@@ -651,6 +655,8 @@ main {
   outline: none;
   font-size: 1rem;
 }
+
+/* BOTÓN MOSTAZA SIEMPRE */
 .add-cart-btn {
   background-color: #d4af37;
   color: #000;
@@ -675,9 +681,10 @@ main {
   border-bottom: 1px solid #eee;
 }
 
+/* Colores Default (Clásica): Negro/Gris */
 .accordion-btn {
   background-color: transparent;
-  color: #333;
+  color: #333; /* Default */
   cursor: pointer;
   padding: 12px 0;
   width: 100%;
@@ -694,12 +701,13 @@ main {
 
 .accordion-btn:hover,
 .accordion-btn.active {
-  color: #d4af37;
+  color: #d4af37; /* Hover dorado */
 }
 
 .arrow {
   font-size: 0.8rem;
   transition: transform 0.3s ease;
+  color: #333; /* Flecha default */
 }
 
 .panel {
@@ -734,17 +742,15 @@ main {
   color: #999;
   font-size: 1.1rem;
 }
-/* ELIMINADO S/. DEL TACHADO */
 .strikethrough::before {
   content: "";
 }
 
 .highlight-price {
-  color: #d4af37;
+  color: #d4af37; /* Default Dorado para clásica */
   font-weight: bold;
   font-size: 1.3rem;
 }
-/* ELIMINADO S/. DEL PRECIO OFERTA */
 .highlight-price::before {
   content: "";
 }
@@ -755,7 +761,6 @@ main {
   margin-bottom: 20px;
 }
 
-/* --- NOTA DEL CARRITO --- */
 .variant-note {
   margin-top: 20px;
   font-size: 0.9rem;
@@ -767,6 +772,29 @@ main {
   border: 1px solid #eee;
   margin-bottom: 15px;
   font-style: normal;
+}
+
+/* --- TEMA EXÓTICO (#9c27b0) --- */
+/* Estas reglas solo aplican si la clase .theme-exotica está en el modal */
+
+/* 1. Título */
+.theme-exotica #modal-title {
+  color: #9c27b0 !important;
+}
+
+/* 2. Textos de Palomillas */
+.theme-exotica .accordion-btn {
+  color: #9c27b0 !important;
+}
+
+/* 3. Flechas */
+.theme-exotica .arrow {
+  color: #9c27b0 !important;
+}
+
+/* 4. Precio Preventa */
+.theme-exotica .highlight-price {
+  color: #9c27b0 !important;
 }
 
 /* --- CARRITO --- */
@@ -878,7 +906,6 @@ main {
   font-weight: bold;
   margin-bottom: 15px;
 }
-/* ELIMINADO S/. DEL TOTAL */
 .total-row span:last-child::before {
   content: "";
 }
@@ -1069,12 +1096,13 @@ main {
   .modal-content {
     flex-direction: column;
     height: auto;
-    max-height: 90vh; /* Máximo alto de pantalla */
-    overflow-y: auto; /* Permite scroll vertical dentro de la tarjeta blanca */
+    max-height: 90vh; /* Máximo 90% alto de pantalla */
+    overflow-y: auto; /* Habilitar scroll en el contenedor principal para móvil */
   }
   .modal-body {
     flex-direction: column;
     min-height: auto;
+    overflow: visible; /* En móvil, el cuerpo fluye */
   }
   .modal-img-wrapper {
     height: 300px;
@@ -1084,11 +1112,17 @@ main {
   .modal-details {
     padding: 20px;
     flex: none;
+    overflow-y: visible; /* En móvil, scroll de la tarjeta completa */
+    height: auto;
   }
-  /* Ajuste para que la X no se pierda al hacer scroll (ABSOLUTE) */
+
+  /* --- FIX DE LA X EN MÓVIL (STICKY) --- */
   .close-btn {
+    position: sticky; /* Se pega al techo al hacer scroll */
     top: 10px;
     right: 10px;
+    margin-left: auto;
+    margin-right: 10px;
     background: rgba(255, 255, 255, 0.8);
     border-radius: 50%;
     width: 35px;
@@ -1096,7 +1130,5 @@ main {
     line-height: 35px;
     text-align: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    /* Se mantiene absolute según lo pedido, no sticky */
-    position: absolute;
   }
 }
