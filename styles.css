@@ -6,13 +6,9 @@
 }
 
 body {
-  /* --- AJUSTE DE FONDO --- */
-  background-image: url("img/imgheroseamlessborders.jpg");
-  background-size: 100% auto;
-  background-position: top center;
-  background-repeat: repeat-y;
-  background-attachment: fixed;
-  background-color: #f4f4f4;
+  /* --- AJUSTE DE FONDO (Blanco Limpio) --- */
+  background-color: #ffffff; /* Fondo blanco solicitado */
+  background-image: none; /* Se elimina la imagen de hongos */
   color: #333;
   font-family: "Roboto", sans-serif;
   overflow-x: hidden;
@@ -114,12 +110,10 @@ main {
   margin-bottom: 0;
 }
 
-/* --- FONDO ESPECÍFICO PARA CEPAS --- */
+/* --- FONDO ESPECÍFICO PARA CEPAS (Opcional si quieres mantenerlo blanco tmb) --- */
 #cepas-bg {
-  background-size: 100% auto;
-  background-position: top center;
-  background-repeat: repeat-y;
-  background-attachment: fixed;
+  /* Si quieres el fondo de cepas también blanco, descomenta: */
+  /* background: transparent; */
 }
 
 /* --- HERO SECTION (PC) --- */
@@ -140,10 +134,10 @@ main {
 
 .hero-text-content {
   text-align: left;
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(255, 255, 255, 0.95); /* Fondo sutil para texto */
   padding: 40px;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Sombra más suave */
 }
 
 .hero-main-title {
@@ -211,15 +205,18 @@ main {
   height: 500px;
   border-radius: 30px;
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-  background-color: #fff;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); /* Sombra ajustada */
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #eee; /* Color de carga mientras llega la imagen */
 }
 
 .hero-image-container img {
-  display: none;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* --- SECCIÓN CATEGORÍAS --- */
@@ -404,9 +401,9 @@ img[src*="story-origen"] {
   color: #d4af37;
   font-weight: bold;
 }
-/* COLOR DE LA CEPA EXÓTICA (MODIFICADO) */
+/* COLOR DE LA CEPA EXÓTICA (TERRACOTA) */
 .product-item .price.exotica {
-  color: #9c27b0 !important; /* Terracota Muted (No tan rojo, pero distinto al dorado) */
+  color: #9c27b0 !important;
 }
 
 .full-screen-section {
@@ -746,18 +743,18 @@ img[src*="story-origen"] {
   margin-bottom: 20px;
 }
 
-/* MODIFICACIÓN DE LA NOTA DEL CARRITO (Menos overwhelming) */
+/* --- RESTAURADO: NOTA DEL CARRITO --- */
 .variant-note {
   margin-top: 20px;
   font-size: 0.9rem;
   color: #555;
   text-align: center;
-  background: #fcfcfc; /* Gris casi blanco */
+  background: #fcfcfc;
   padding: 12px;
   border-radius: 8px;
-  border: 1px solid #eee; /* Borde sutil */
+  border: 1px solid #eee;
   margin-bottom: 15px;
-  font-style: normal; /* Quitar cursiva */
+  font-style: normal; /* Sin cursiva */
 }
 
 /* --- CARRITO --- */
