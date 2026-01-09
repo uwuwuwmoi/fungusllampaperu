@@ -71,6 +71,7 @@ let currentImages = [];
 // --- INICIALIZACIÓN ---
 document.addEventListener("DOMContentLoaded", () => {
   updateCartUI();
+  initTheme(); // Iniciar tema guardado
 });
 
 function saveCart() {
@@ -80,8 +81,7 @@ function saveCart() {
 // --- MANEJO DEL BOTÓN ATRÁS (HISTORIAL) ---
 window.addEventListener("popstate", function (event) {
   const modal = document.getElementById("productModal");
-  // Si el modal está visible, lo cerramos visualmente
-  if (modal.style.display === "flex") {
+  if (modal && modal.style.display === "flex") {
     modal.style.display = "none";
   }
 });
@@ -89,41 +89,40 @@ window.addEventListener("popstate", function (event) {
 // --- FUNCIONES DEL MODAL ---
 function openModal(element) {
   const modal = document.getElementById("productModal");
-  const modalContent = modal.querySelector(".modal-content"); // Seleccionamos el contenedor interno
+  const modalContent = modal.querySelector(".modal-content");
 
-  // Obtener datos del HTML
   currentProduct = {
     name: element.getAttribute("data-name"),
-    type: element.getAttribute("data-type"), // 'clasica' o 'exotica'
+    type: element.getAttribute("data-type"),
     strainDesc: element.getAttribute("data-desc"),
     strainImg: element
       .getAttribute("data-img")
       .split(",")
       .map((img) => img.trim()),
+    regularPrice: 0,
+    preventaPrice: 0,
+    activePrice: 0,
+    isPreventa: false,
   };
 
   const titleElement = document.getElementById("modal-title");
   titleElement.innerText = currentProduct.name;
 
-  // LÓGICA DE TEMA: SI ES EXÓTICA, AGREGAMOS CLASE MAESTRA
+  // Lógica Exótica (Clase base)
   if (currentProduct.type === "exotica") {
     titleElement.classList.add("exotica");
-    modalContent.classList.add("theme-exotica"); // Agregamos clase para CSS
+    modalContent.classList.add("theme-exotica");
   } else {
     titleElement.classList.remove("exotica");
-    modalContent.classList.remove("theme-exotica"); // Quitamos clase
+    modalContent.classList.remove("theme-exotica");
   }
 
-  // Agregar estado al historial para que el botón "Atrás" cierre el modal
   window.history.pushState({ modalOpen: true }, "", "");
-
   setupVariantSelect();
   modal.style.display = "flex";
 }
 
 function closeModal() {
-  // Al cerrar manualmente (con la X o botón), retrocedemos en el historial
-  // para quitar el estado 'modalOpen' y evitar conflictos futuros.
   if (window.history.state && window.history.state.modalOpen) {
     window.history.back();
   } else {
@@ -131,7 +130,6 @@ function closeModal() {
   }
 }
 
-// Clic fuera del modal para cerrar
 window.onclick = function (event) {
   const productModal = document.getElementById("productModal");
   const cartModal = document.getElementById("cartModal");
@@ -142,7 +140,6 @@ window.onclick = function (event) {
 function setupVariantSelect() {
   const select = document.getElementById("variant-select");
   const options = Object.keys(FORMAT_DETAILS);
-
   select.innerHTML = "";
   options.forEach((opt) => {
     const optionElement = document.createElement("option");
@@ -150,36 +147,31 @@ function setupVariantSelect() {
     optionElement.innerText = opt;
     select.appendChild(optionElement);
   });
-
   select.onchange = () => updateModalDetails(select.value);
-  updateModalDetails(select.value); // Cargar primera opción
+  updateModalDetails(select.value);
 }
 
 function updateModalDetails(selectedOption) {
   const priceElement = document.getElementById("modal-price");
   const descElement = document.getElementById("modal-desc");
-
   const formatData = FORMAT_DETAILS[selectedOption];
   const type = currentProduct.type || "clasica";
   const typeData = TYPE_INFO[type];
 
-  // 1. Obtener precios
   const prices = PRICING[type][formatData.key];
-  const regularPrice = prices.regular;
-  const preventaPrice = prices.preventa;
-
-  currentProduct.currentPrice = regularPrice;
+  currentProduct.regularPrice = prices.regular;
+  currentProduct.preventaPrice = prices.preventa;
   currentProduct.currentVariety = selectedOption;
 
-  // 2. Actualizar Precio Principal (SIN S/.)
-  priceElement.innerText = regularPrice.toFixed(2);
+  // Reset preventa
+  currentProduct.isPreventa = false;
+  currentProduct.activePrice = currentProduct.regularPrice;
+  priceElement.innerText = currentProduct.activePrice.toFixed(2);
 
-  // 3. Generar HTML del acordeón (SIN S/.)
   descElement.innerHTML = `
-    <div class="product-info-block">
-        <p class="main-desc">${formatData.text}</p>
-    </div>
-
+    <div class="product-info-block"><p class="main-desc">${
+      formatData.text
+    }</p></div>
     <div class="accordion-wrapper">
         <button class="accordion-btn" onclick="toggleAccordion(this)">
             Precio por preventa <span class="arrow">▼</span>
@@ -187,33 +179,35 @@ function updateModalDetails(selectedOption) {
         <div class="panel">
             <div class="preventa-content">
                 <p class="price-comparison">
-                    <span class="strikethrough">${regularPrice.toFixed(
+                    <span class="strikethrough">${currentProduct.regularPrice.toFixed(
                       2
                     )}</span> 
-                    <span class="highlight-price">${preventaPrice.toFixed(
+                    <span class="highlight-price">${currentProduct.preventaPrice.toFixed(
                       2
                     )}</span>
                 </p>
-                <p class="small-text">Reserva tu producto ahora a un precio reducido. El producto estará disponible en la fecha estimada (7-14 días hábiles).</p>
+                <p class="small-text">Reserva tu producto ahora a un precio reducido (7-14 días hábiles).</p>
+                <div class="preventa-option-container-internal">
+                  <label class="preventa-checkbox">
+                    <input type="checkbox" id="preventa-toggle" onchange="togglePreventaPrice()">
+                    <span class="checkmark"></span>
+                    <span class="label-text">Optar por PREVENTA (${currentProduct.preventaPrice.toFixed(
+                      2
+                    )})</span>
+                  </label>
+                </div>
             </div>
         </div>
     </div>
-
     <div class="accordion-wrapper">
-        <button class="accordion-btn" onclick="toggleAccordion(this)">
-            ${typeData.title} <span class="arrow">▼</span>
-        </button>
-        <div class="panel">
-            <p class="small-text">${typeData.text}</p>
-        </div>
+        <button class="accordion-btn" onclick="toggleAccordion(this)">${
+          typeData.title
+        } <span class="arrow">▼</span></button>
+        <div class="panel"><p class="small-text">${typeData.text}</p></div>
     </div>
-    
-    <div class="variant-note">
-        <p>Añade al carrito para consultar por WhatsApp</p>
-    </div>
+    <div class="variant-note"><p>Añade al carrito para consultar por WhatsApp</p></div>
   `;
 
-  // 4. Actualizar Imágenes
   if (formatData.imageType === "strain")
     currentImages = currentProduct.strainImg;
   else if (FORMAT_DETAILS[selectedOption])
@@ -223,12 +217,23 @@ function updateModalDetails(selectedOption) {
   setupCarousel();
 }
 
-// --- LÓGICA ACORDEÓN ---
+function togglePreventaPrice() {
+  const preventaCheckbox = document.getElementById("preventa-toggle");
+  const priceElement = document.getElementById("modal-price");
+  if (preventaCheckbox && preventaCheckbox.checked) {
+    currentProduct.activePrice = currentProduct.preventaPrice;
+    currentProduct.isPreventa = true;
+  } else {
+    currentProduct.activePrice = currentProduct.regularPrice;
+    currentProduct.isPreventa = false;
+  }
+  priceElement.innerText = currentProduct.activePrice.toFixed(2);
+}
+
 function toggleAccordion(btn) {
   btn.classList.toggle("active");
   const panel = btn.nextElementSibling;
   const arrow = btn.querySelector(".arrow");
-
   if (panel.style.maxHeight) {
     panel.style.maxHeight = null;
     arrow.style.transform = "rotate(0deg)";
@@ -238,12 +243,10 @@ function toggleAccordion(btn) {
   }
 }
 
-// --- LÓGICA DEL CARRUSEL ---
 function setupCarousel() {
   const imgWrapper = document.querySelector(".modal-img-wrapper");
   imgWrapper.innerHTML = "";
-
-  if (currentImages.length === 0 || currentImages.length === 1) {
+  if (currentImages.length <= 1) {
     const src =
       currentImages.length === 1 ? currentImages[0] : "img/placeholder.webp";
     imgWrapper.innerHTML = `<img src="${src}" alt="${currentProduct.name}" class="modal-static-img">`;
@@ -254,10 +257,7 @@ function setupCarousel() {
         index === 0 ? "block" : "none"
       }">`;
     });
-    slidesHTML += `
-      <button class="carousel-btn prev" onclick="moveSlide(-1)">&#10094;</button>
-      <button class="carousel-btn next" onclick="moveSlide(1)">&#10095;</button>
-    `;
+    slidesHTML += `<button class="carousel-btn prev" onclick="moveSlide(-1)">&#10094;</button><button class="carousel-btn next" onclick="moveSlide(1)">&#10095;</button>`;
     imgWrapper.innerHTML = slidesHTML;
   }
 }
@@ -272,17 +272,16 @@ function moveSlide(n) {
   slides[currentSlideIndex].style.display = "block";
 }
 
-// --- AÑADIR AL CARRITO ---
 const standardBtn = document.querySelector(".add-cart-btn");
 if (standardBtn) {
   standardBtn.addEventListener("click", function () {
     const item = {
       id: Date.now(),
       name: currentProduct.name,
-      price: currentProduct.currentPrice,
+      price: currentProduct.activePrice,
       variety: currentProduct.currentVariety,
+      isPreventa: currentProduct.isPreventa,
     };
-
     cart.push(item);
     saveCart();
     updateCartUI();
@@ -291,7 +290,6 @@ if (standardBtn) {
   });
 }
 
-// --- FUNCIONES CARRITO ---
 function toggleCart() {
   const cartModal = document.getElementById("cartModal");
   cartModal.style.display =
@@ -310,10 +308,13 @@ function renderCartItems() {
   let total = 0;
   cart.forEach((item) => {
     total += item.price;
+    const preventaLabel = item.isPreventa
+      ? "<span style='color:#9c27b0; font-size:0.8rem; font-weight:bold;'> (PREVENTA)</span>"
+      : "";
     const div = document.createElement("div");
     div.classList.add("cart-item");
     div.innerHTML = `
-      <div class="item-info"><h4>${item.name}</h4><span>${
+      <div class="item-info"><h4>${item.name} ${preventaLabel}</h4><span>${
       item.variety
     }</span><div><strong>${item.price.toFixed(2)}</strong></div></div>
       <span class="remove-item" onclick="removeFromCart(${item.id})">🗑️</span>`;
@@ -343,12 +344,42 @@ function clearCart() {
 
 function sendToWhatsapp() {
   if (cart.length === 0) return alert("El carrito está vacío.");
-  let message = "Hola FungusLlampa, mi pedido:%0A%0A";
+  let message =
+    "¡Hola equipo de FungusLlampa! 👋🍄%0AHe estado revisando su catálogo y me gustaría coordinar el siguiente pedido:%0A%0A";
   let total = 0;
   cart.forEach((item, i) => {
     total += item.price;
-    message += `${i + 1}. *${item.name}* - ${item.variety} (${item.price})%0A`;
+    const status = item.isPreventa ? "(PREVENTA ⏳)" : "(STOCK ✅)";
+    message += `${i + 1}. *${item.name}* - ${
+      item.variety
+    } ${status} - S/. ${item.price.toFixed(2)}%0A`;
   });
-  message += `%0A*TOTAL: ${total.toFixed(2)}*%0A%0AMétodo de pago?`;
+  message += `%0A*TOTAL APROX: S/. ${total.toFixed(
+    2
+  )}*%0A%0AQuedo atento a su confirmación y los métodos de pago. ¡Gracias! ✨`;
   window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
+}
+
+// --- LOGICA MODO NOCTURNO ---
+function initTheme() {
+  const savedTheme = localStorage.getItem("theme");
+  const themeBtn = document.getElementById("theme-toggle");
+
+  if (savedTheme === "dark") {
+    document.body.classList.add("dark-mode");
+    if (themeBtn) themeBtn.innerText = "☀️";
+  }
+
+  if (themeBtn) {
+    themeBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      if (document.body.classList.contains("dark-mode")) {
+        localStorage.setItem("theme", "dark");
+        themeBtn.innerText = "☀️";
+      } else {
+        localStorage.setItem("theme", "light");
+        themeBtn.innerText = "🌙";
+      }
+    });
+  }
 }
