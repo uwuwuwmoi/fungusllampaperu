@@ -701,7 +701,7 @@ main {
 
 .accordion-btn:hover,
 .accordion-btn.active {
-  color: #d4af37; /* Hover dorado */
+  color: #d4af37; /* Hover dorado por defecto */
 }
 
 .arrow {
@@ -777,23 +777,34 @@ main {
 /* --- TEMA EXÓTICO (#9c27b0) --- */
 /* Estas reglas solo aplican si la clase .theme-exotica está en el modal */
 
-/* 1. Título */
+/* 1. Título (Siempre Morado) */
 .theme-exotica #modal-title {
   color: #9c27b0 !important;
 }
 
-/* 2. Textos de Palomillas */
-.theme-exotica .accordion-btn {
-  color: #9c27b0 !important;
-}
-
-/* 3. Flechas */
-.theme-exotica .arrow {
-  color: #9c27b0 !important;
-}
-
-/* 4. Precio Preventa */
+/* 2. Precio Preventa (Siempre Morado) */
 .theme-exotica .highlight-price {
+  color: #9c27b0 !important;
+}
+
+/* 3. Palomillas (Accordions) - MODIFICADO */
+/* Estado Normal: Negro (Anulamos el morado permanente anterior) */
+.theme-exotica .accordion-btn {
+  color: #333 !important;
+}
+.theme-exotica .arrow {
+  color: #333 !important;
+}
+
+/* Estado Hover/Activo: Morado */
+.theme-exotica .accordion-btn:hover,
+.theme-exotica .accordion-btn.active {
+  color: #9c27b0 !important;
+}
+
+/* Aseguramos que la flecha cambie también al interactuar */
+.theme-exotica .accordion-btn:hover .arrow,
+.theme-exotica .accordion-btn.active .arrow {
   color: #9c27b0 !important;
 }
 
