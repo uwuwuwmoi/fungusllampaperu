@@ -7,8 +7,8 @@
 
 body {
   /* --- AJUSTE DE FONDO (Blanco Limpio) --- */
-  background-color: #ffffff; /* Fondo blanco solicitado */
-  background-image: none; /* Se elimina la imagen de hongos */
+  background-color: #ffffff;
+  background-image: none;
   color: #333;
   font-family: "Roboto", sans-serif;
   overflow-x: hidden;
@@ -110,10 +110,9 @@ main {
   margin-bottom: 0;
 }
 
-/* --- FONDO ESPECÍFICO PARA CEPAS (Opcional si quieres mantenerlo blanco tmb) --- */
+/* --- FONDO ESPECÍFICO PARA CEPAS --- */
 #cepas-bg {
-  /* Si quieres el fondo de cepas también blanco, descomenta: */
-  /* background: transparent; */
+  /* Opcional: background: transparent; si se quiere todo blanco */
 }
 
 /* --- HERO SECTION (PC) --- */
@@ -134,10 +133,10 @@ main {
 
 .hero-text-content {
   text-align: left;
-  background-color: rgba(255, 255, 255, 0.95); /* Fondo sutil para texto */
+  background-color: rgba(255, 255, 255, 0.95);
   padding: 40px;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Sombra más suave */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
 .hero-main-title {
@@ -205,11 +204,11 @@ main {
   height: 500px;
   border-radius: 30px;
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); /* Sombra ajustada */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  background-color: #eee;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #eee; /* Color de carga mientras llega la imagen */
 }
 
 .hero-image-container img {
@@ -333,12 +332,8 @@ main {
 .story-image-side img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* Esto asegura que llene todo el recuadro */
   display: block;
-}
-img[src*="story-origen"] {
-  object-fit: contain !important;
-  padding: 30px !important;
 }
 
 /* --- GRID PRODUCTOS --- */
@@ -401,9 +396,9 @@ img[src*="story-origen"] {
   color: #d4af37;
   font-weight: bold;
 }
-/* COLOR DE LA CEPA EXÓTICA (TERRACOTA) */
+/* COLOR DE LA CEPA EXÓTICA */
 .product-item .price.exotica {
-  color: #9c27b0 !important;
+    color: #bf5e36 !important; 
 }
 
 .full-screen-section {
@@ -743,7 +738,7 @@ img[src*="story-origen"] {
   margin-bottom: 20px;
 }
 
-/* --- RESTAURADO: NOTA DEL CARRITO --- */
+/* --- NOTA DEL CARRITO --- */
 .variant-note {
   margin-top: 20px;
   font-size: 0.9rem;
@@ -754,7 +749,7 @@ img[src*="story-origen"] {
   border-radius: 8px;
   border: 1px solid #eee;
   margin-bottom: 15px;
-  font-style: normal; /* Sin cursiva */
+  font-style: normal;
 }
 
 /* --- CARRITO --- */
