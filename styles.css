@@ -6,6 +6,7 @@
 }
 
 body {
+  /* --- AJUSTE DE FONDO (Blanco Limpio) --- */
   background-color: #ffffff;
   background-image: none;
   color: #333;
@@ -14,6 +15,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 main {
@@ -29,11 +31,13 @@ main {
   z-index: 1000;
   padding: 15px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
 }
 
 .nav-links {
   display: flex;
   justify-content: center;
+  align-items: center;
   list-style: none;
   gap: 30px;
   margin: 0;
@@ -52,6 +56,20 @@ main {
 .nav-links a:hover,
 .nav-links a.active {
   color: #d4af37;
+}
+
+/* BOTON TEMA (EXOTIC MODE) */
+.theme-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: transform 0.3s;
+  padding: 5px;
+  line-height: 1;
+}
+.theme-btn:hover {
+  transform: scale(1.2);
 }
 
 /* --- CONTENEDOR CENTRAL --- */
@@ -84,7 +102,6 @@ main {
     -2px 2px 0 #fff, 2px 2px 0 #fff !important;
 }
 
-/* --- ESTILO "CAJA BLANCA" PARA SUBTÍTULOS --- */
 .description-top p,
 .section-header p {
   background-color: #fff;
@@ -387,12 +404,15 @@ main {
 }
 .price {
   font-size: 1.2rem;
-  color: #d4af37;
+  color: #d4af37; /* Default Mostaza */
   font-weight: bold;
 }
 
-/* COLOR AMATISTA (VIOLETA) PARA EXÓTICAS EN GRID */
+/* COLOR AMATISTA (VIOLETA) PARA EXÓTICAS */
 .product-item .price.exotica {
+  color: #9c27b0 !important;
+}
+#modal-title.exotica {
   color: #9c27b0 !important;
 }
 
@@ -484,7 +504,6 @@ main {
   align-items: center;
   backdrop-filter: blur(5px);
 }
-
 .modal-content {
   background-color: #fff;
   color: #333;
@@ -496,14 +515,11 @@ main {
   box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
   animation: modalFadeIn 0.3s;
   padding: 0;
+  overflow: hidden;
   display: flex;
   flex-direction: row;
-
-  /* --- FIX DE SCROLL (ESCRITORIO) --- */
-  max-height: 90vh; /* Máximo 90% de pantalla */
-  overflow: hidden; /* No crece más allá de eso */
+  max-height: 90vh;
 }
-
 @keyframes modalFadeIn {
   from {
     opacity: 0;
@@ -543,9 +559,8 @@ main {
   flex-direction: row;
   align-items: stretch;
   width: 100%;
-  min-height: 0; /* Necesario para que el scroll anidado funcione */
+  min-height: 0;
 }
-
 .modal-img-wrapper {
   flex: 1.2;
   background-color: #f0f0f0;
@@ -612,7 +627,6 @@ main {
   flex-direction: column;
   justify-content: flex-start;
   text-align: left;
-  /* El scroll ocurre AQUÍ en escritorio */
   overflow-y: auto;
   height: 100%;
 }
@@ -620,13 +634,13 @@ main {
 #modal-title {
   font-family: "Playfair Display", serif;
   font-size: 2.2rem;
-  color: #d4af37; /* Default (Clásica) */
+  color: #d4af37; /* BASE: MOSTAZA (CLÁSICA) */
   margin-bottom: 10px;
 }
 
 .modal-price {
   font-size: 1.8rem;
-  color: #333; /* SIEMPRE NEGRO */
+  color: #333; /* BASE: NEGRO (Precio Regular) */
   font-weight: bold;
   margin-bottom: 20px;
 }
@@ -640,11 +654,9 @@ main {
 .modal-selectors label {
   display: block;
   margin-bottom: 8px;
-  color: #000; /* SIEMPRE NEGRO (Presentación) */
+  color: #333;
   font-size: 0.9rem;
-  font-weight: bold;
 }
-
 .modal-selectors select {
   width: 100%;
   padding: 12px;
@@ -656,7 +668,28 @@ main {
   font-size: 1rem;
 }
 
-/* BOTÓN MOSTAZA SIEMPRE */
+/* --- ESTILO OPCIÓN PREVENTA (INTERNO) --- */
+.preventa-option-container-internal {
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 1px dashed #eee;
+}
+.preventa-checkbox {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+/* BASE: Checkbox Mostaza (Clásica) */
+.preventa-checkbox input {
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+  accent-color: #d4af37;
+}
+
 .add-cart-btn {
   background-color: #d4af37;
   color: #000;
@@ -675,16 +708,14 @@ main {
   background-color: #f1c40f;
 }
 
-/* --- ESTILOS ACORDEÓN EN MODAL --- */
+/* --- ESTILOS ACORDEÓN --- */
 .accordion-wrapper {
   margin-top: 15px;
   border-bottom: 1px solid #eee;
 }
-
-/* Colores Default (Clásica): Negro/Gris */
 .accordion-btn {
   background-color: transparent;
-  color: #333; /* Default */
+  color: #333;
   cursor: pointer;
   padding: 12px 0;
   width: 100%;
@@ -698,18 +729,16 @@ main {
   align-items: center;
   transition: color 0.3s;
 }
-
+/* BASE: Hover Mostaza (Clásica) */
 .accordion-btn:hover,
 .accordion-btn.active {
-  color: #d4af37; /* Hover dorado por defecto */
+  color: #d4af37;
 }
-
 .arrow {
   font-size: 0.8rem;
   transition: transform 0.3s ease;
-  color: #333; /* Flecha default */
+  color: #333;
 }
-
 .panel {
   padding: 0;
   background-color: white;
@@ -717,26 +746,21 @@ main {
   overflow: hidden;
   transition: max-height 0.3s ease-out;
 }
-
 .small-text {
   font-size: 0.9rem;
   color: #666;
   line-height: 1.5;
   padding-bottom: 15px;
 }
-
-/* --- ESTILOS PRECIOS PREVENTA --- */
 .preventa-content {
   padding: 10px 0;
 }
-
 .price-comparison {
   display: flex;
   gap: 15px;
   align-items: center;
   margin-bottom: 5px;
 }
-
 .strikethrough {
   text-decoration: line-through;
   color: #999;
@@ -745,22 +769,20 @@ main {
 .strikethrough::before {
   content: "";
 }
-
+/* BASE: Preventa Mostaza (Clásica) */
 .highlight-price {
-  color: #d4af37; /* Default Dorado para clásica */
+  color: #d4af37;
   font-weight: bold;
   font-size: 1.3rem;
 }
 .highlight-price::before {
   content: "";
 }
-
 .main-desc {
   font-size: 1rem;
   line-height: 1.6;
   margin-bottom: 20px;
 }
-
 .variant-note {
   margin-top: 20px;
   font-size: 0.9rem;
@@ -774,37 +796,19 @@ main {
   font-style: normal;
 }
 
-/* --- TEMA EXÓTICO (#9c27b0) --- */
-/* Estas reglas solo aplican si la clase .theme-exotica está en el modal */
-
-/* 1. Título (Siempre Morado) */
+/* --- TEMA EXÓTICO (APLICA EN LIGHT Y DARK) --- */
+/* Las exóticas siempre llevan Magenta en sus acentos */
 .theme-exotica #modal-title {
   color: #9c27b0 !important;
 }
-
-/* 2. Precio Preventa (Siempre Morado) */
 .theme-exotica .highlight-price {
   color: #9c27b0 !important;
 }
-
-/* 3. Palomillas (Accordions) - MODIFICADO */
-/* Estado Normal: Negro (Anulamos el morado permanente anterior) */
-.theme-exotica .accordion-btn {
-  color: #333 !important;
+.theme-exotica .preventa-checkbox input {
+  accent-color: #9c27b0 !important;
 }
-.theme-exotica .arrow {
-  color: #333 !important;
-}
-
-/* Estado Hover/Activo: Morado */
 .theme-exotica .accordion-btn:hover,
 .theme-exotica .accordion-btn.active {
-  color: #9c27b0 !important;
-}
-
-/* Aseguramos que la flecha cambie también al interactuar */
-.theme-exotica .accordion-btn:hover .arrow,
-.theme-exotica .accordion-btn.active .arrow {
   color: #9c27b0 !important;
 }
 
@@ -997,13 +1001,187 @@ main {
   color: #666;
 }
 
-/* --- RESPONSIVE (MÓVIL) --- */
+/* --- EXOTIC MODE (Antes Night Mode) --- */
+body.dark-mode {
+  background-color: #050505;
+  color: #fff; /* TEXTO BLANCO */
+}
+body.dark-mode .navbar {
+  background-color: #000;
+  border-bottom: 1px solid #222;
+}
+
+/* Textos Generales en Blanco Puro para Contraste */
+body.dark-mode p,
+body.dark-mode .hero-subtitle,
+body.dark-mode .cat-card p,
+body.dark-mode .story-text-side p,
+body.dark-mode .modal-selectors label,
+body.dark-mode .main-desc,
+body.dark-mode .description-top p,
+body.dark-mode .section-header p,
+body.dark-mode .label-text {
+  color: #fff !important;
+  text-shadow: none !important;
+}
+
+/* Títulos con Acento Magenta (General) */
+body.dark-mode .nav-links a:hover,
+body.dark-mode .nav-links a.active,
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode .category-title,
+body.dark-mode .hero-main-title,
+body.dark-mode .hero-main-title .highlight {
+  color: #9c27b0 !important;
+  text-shadow: none !important;
+}
+
+/* Links "Ver más" en Magenta */
+body.dark-mode .cat-link {
+  color: #9c27b0 !important;
+}
+
+/* Tarjetas y Contenedores */
+body.dark-mode .cat-card,
+body.dark-mode .product-item,
+body.dark-mode .modal-content,
+body.dark-mode .cart-content,
+body.dark-mode .hero-text-content,
+body.dark-mode .story-row,
+body.dark-mode .contact-info-side,
+body.dark-mode .social-card,
+body.dark-mode .info-box,
+body.dark-mode .description-top p,
+body.dark-mode .section-header p {
+  background-color: #121212 !important;
+  border: 1px solid #333;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+}
+
+/* GRID DE PRODUCTOS (CORRECCIÓN CLÁSICAS MOSTAZA) */
+/* Nombre de Cepa: Blanco */
+body.dark-mode .info-box h3 {
+  color: #fff !important;
+}
+/* Clasificación Clásica: Mostaza (#d4af37) */
+body.dark-mode .price {
+  color: #d4af37 !important;
+}
+/* Clasificación Exótica: Magenta (#9c27b0) */
+body.dark-mode .price.exotica {
+  color: #9c27b0 !important;
+}
+
+/* Botones principales en magenta */
+body.dark-mode .add-cart-btn,
+body.dark-mode .btn-primary,
+body.dark-mode .checkout-btn {
+  background-color: #9c27b0 !important;
+  color: #fff !important;
+  border: 1px solid #7b1fa2;
+}
+body.dark-mode .add-cart-btn:hover,
+body.dark-mode .btn-primary:hover {
+  background-color: #7b1fa2 !important;
+}
+
+/* --- MODALS EN DARK MODE --- */
+/* Precio Regular: Blanco Puro */
+body.dark-mode .modal-price {
+  color: #fff !important;
+}
+
+/* 1. TÍTULO Y PREVENTA CLÁSICA -> MOSTAZA */
+body.dark-mode #modal-title {
+  color: #d4af37 !important;
+}
+body.dark-mode .highlight-price {
+  color: #d4af37 !important;
+}
+body.dark-mode .accordion-btn:hover,
+body.dark-mode .accordion-btn.active {
+  color: #d4af37 !important;
+}
+body.dark-mode .preventa-checkbox input {
+  accent-color: #d4af37 !important;
+}
+
+/* 2. TÍTULO Y PREVENTA EXÓTICA -> MAGENTA */
+body.dark-mode .theme-exotica #modal-title,
+body.dark-mode .theme-exotica .highlight-price {
+  color: #9c27b0 !important;
+}
+body.dark-mode .theme-exotica .accordion-btn:hover,
+body.dark-mode .theme-exotica .accordion-btn.active {
+  color: #9c27b0 !important;
+}
+body.dark-mode .theme-exotica .preventa-checkbox input {
+  accent-color: #9c27b0 !important;
+}
+
+body.dark-mode select {
+  background-color: #222;
+  color: #fff;
+  border: 1px solid #444;
+}
+
+/* --- PALOMILLAS (ACCORDIONS) LIMPIAS (INVISIBLE BOXES) --- */
+body.dark-mode .panel {
+  background-color: transparent !important;
+}
+/* TEXTO PREVENTA LEGIBLE */
+body.dark-mode .small-text {
+  color: #ddd !important;
+}
+body.dark-mode .preventa-option-container-internal {
+  border: none !important;
+  border-top: none !important;
+  background: transparent !important;
+}
+body.dark-mode .preventa-content {
+  border: none !important;
+}
+/* Estado por defecto de palomillas en dark mode */
+body.dark-mode .accordion-btn {
+  color: #bbb !important;
+}
+body.dark-mode .arrow {
+  color: #bbb !important;
+}
+
+body.dark-mode .cat-icon {
+  background-color: #2a1a2a;
+  color: #9c27b0;
+}
+body.dark-mode .cart-item,
+body.dark-mode .accordion-wrapper,
+body.dark-mode .cart-items-container {
+  border-color: #333;
+}
+body.dark-mode .close-btn {
+  background-color: #333;
+  color: #fff;
+}
+body.dark-mode .close-btn:hover {
+  color: #9c27b0;
+}
+
+/* NOTA DE CARRITO (WHATSAPP) LEGIBLE */
+body.dark-mode .variant-note {
+  background-color: transparent;
+  color: #eee;
+  border: 1px solid #444;
+}
+body.dark-mode .variant-note p {
+  color: #eee !important;
+}
+
+/* RESPONSIVE */
 @media (max-width: 900px) {
   body {
     background-size: 100%;
   }
-
-  /* === HERO SECTION === */
   .hero-grid {
     display: flex;
     flex-direction: column;
@@ -1014,7 +1192,6 @@ main {
     overflow: hidden;
     padding: 0;
   }
-
   .hero-text-content {
     text-align: center;
     padding: 40px 30px 20px;
@@ -1022,21 +1199,17 @@ main {
     box-shadow: none;
     border-radius: 0;
   }
-
   .hero-main-title {
     font-size: 2.2rem;
     line-height: 1.2;
   }
-
   .hero-subtitle {
     font-size: 1rem;
   }
-
   .hero-buttons {
     justify-content: center;
     margin-top: 15px;
   }
-
   .hero-image-container {
     width: 100%;
     height: 300px;
@@ -1044,8 +1217,6 @@ main {
     box-shadow: none;
     margin-top: 0;
   }
-
-  /* === SECCIONES DE HISTORIA === */
   .story-row,
   .story-row.reverse {
     flex-direction: column;
@@ -1057,27 +1228,22 @@ main {
     overflow: hidden;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
   }
-
   .story-text-side {
     padding: 30px;
     text-align: center;
   }
-
   .story-text-side h2 {
     text-align: center;
   }
   .story-text-side p {
     text-align: center;
   }
-
   .story-image-side {
     width: 100%;
     height: 250px;
     border-radius: 0;
     box-shadow: none;
   }
-
-  /* === CATEGORÍAS (SEMICARRUSEL) === */
   .categories-carousel {
     display: flex;
     overflow-x: auto;
@@ -1085,13 +1251,10 @@ main {
     padding-bottom: 20px;
     scroll-snap-type: x mandatory;
   }
-
   .cat-card {
     min-width: 200px;
     scroll-snap-align: start;
   }
-
-  /* === OTROS AJUSTES MÓVIL === */
   .product-grid-4col {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1102,18 +1265,15 @@ main {
     grid-template-columns: 1fr;
     gap: 30px;
   }
-
-  /* MODAL MOVIL FIX */
   .modal-content {
     flex-direction: column;
     height: auto;
-    max-height: 90vh; /* Máximo 90% alto de pantalla */
-    overflow-y: auto; /* Habilitar scroll en el contenedor principal para móvil */
+    max-height: 90vh;
+    overflow-y: auto;
   }
   .modal-body {
     flex-direction: column;
     min-height: auto;
-    overflow: visible; /* En móvil, el cuerpo fluye */
   }
   .modal-img-wrapper {
     height: 300px;
@@ -1123,17 +1283,11 @@ main {
   .modal-details {
     padding: 20px;
     flex: none;
-    overflow-y: visible; /* En móvil, scroll de la tarjeta completa */
-    height: auto;
   }
-
-  /* --- FIX DE LA X EN MÓVIL (STICKY) --- */
   .close-btn {
-    position: sticky; /* Se pega al techo al hacer scroll */
+    position: absolute;
     top: 10px;
     right: 10px;
-    margin-left: auto;
-    margin-right: 10px;
     background: rgba(255, 255, 255, 0.8);
     border-radius: 50%;
     width: 35px;
