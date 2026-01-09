@@ -89,6 +89,7 @@ window.addEventListener("popstate", function (event) {
 // --- FUNCIONES DEL MODAL ---
 function openModal(element) {
   const modal = document.getElementById("productModal");
+  const modalContent = modal.querySelector(".modal-content"); // Seleccionamos el contenedor interno
 
   // Obtener datos del HTML
   currentProduct = {
@@ -104,11 +105,13 @@ function openModal(element) {
   const titleElement = document.getElementById("modal-title");
   titleElement.innerText = currentProduct.name;
 
-  // CAMBIO DE COLOR EN EL TÍTULO (NOMBRE) SI ES EXÓTICA
+  // LÓGICA DE TEMA: SI ES EXÓTICA, AGREGAMOS CLASE MAESTRA
   if (currentProduct.type === "exotica") {
     titleElement.classList.add("exotica");
+    modalContent.classList.add("theme-exotica"); // Agregamos clase para CSS
   } else {
     titleElement.classList.remove("exotica");
+    modalContent.classList.remove("theme-exotica"); // Quitamos clase
   }
 
   // Agregar estado al historial para que el botón "Atrás" cierre el modal
