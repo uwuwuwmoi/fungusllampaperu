@@ -13,19 +13,18 @@ const INSUMO_IMAGES = {
 };
 
 // --- PRECIOS Y TEXTOS (LÓGICA MANUAL) ---
-// Estructura: { regular: PrecioNormal, preventa: PrecioOferta }
 const PRICING = {
   clasica: {
-    lc: { regular: 85, preventa: 75 }, // Termina en 5
-    spawn: { regular: 110, preventa: 95 }, // Solicitado explícitamente
-    kit: { regular: 130, preventa: 115 }, // Termina en 5
-    agar: { regular: 99, preventa: 85 }, // Bajada atractiva
+    lc: { regular: 85, preventa: 75 },
+    spawn: { regular: 110, preventa: 95 },
+    kit: { regular: 130, preventa: 115 },
+    agar: { regular: 99, preventa: 85 },
   },
   exotica: {
-    lc: { regular: 160, preventa: 139 }, // Termina en 9
-    spawn: { regular: 189, preventa: 165 }, // Termina en 5
-    kit: { regular: 199, preventa: 179 }, // De 3 dígitos a oferta atractiva
-    agar: { regular: 179, preventa: 155 }, // Termina en 5
+    lc: { regular: 160, preventa: 139 },
+    spawn: { regular: 189, preventa: 165 },
+    kit: { regular: 199, preventa: 179 },
+    agar: { regular: 179, preventa: 155 },
   },
 };
 
@@ -133,7 +132,7 @@ function updateModalDetails(selectedOption) {
   // 2. Actualizar Precio Principal (Regular)
   priceElement.innerText = regularPrice.toFixed(2);
 
-  // 3. Generar HTML del acordeón
+  // 3. Generar HTML del acordeón (CON LA NOTA RESTAURADA)
   descElement.innerHTML = `
     <div class="product-info-block">
         <p class="main-desc">${formatData.text}</p>
