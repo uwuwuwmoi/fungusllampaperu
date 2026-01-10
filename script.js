@@ -281,6 +281,7 @@ if (standardBtn) {
       price: currentProduct.activePrice,
       variety: currentProduct.currentVariety,
       isPreventa: currentProduct.isPreventa,
+      type: currentProduct.type, // GUARDAMOS EL TIPO (Clásica/Exótica)
     };
     cart.push(item);
     saveCart();
@@ -308,15 +309,22 @@ function renderCartItems() {
   let total = 0;
   cart.forEach((item) => {
     total += item.price;
+    // LÓGICA DE COLOR DINÁMICO SEGÚN TIPO DE CEPA
+    // Si es exótica -> Magenta (#9c27b0), Si es clásica -> Mostaza (#d4af37)
+    let labelColor = item.type === "exotica" ? "#9c27b0" : "#d4af37";
+
     const preventaLabel = item.isPreventa
-      ? "<span style='color:#9c27b0; font-size:0.8rem; font-weight:bold;'> (PREVENTA)</span>"
+      ? `<span style='color:${labelColor}; font-size:0.8rem; font-weight:bold;'> (PREVENTA)</span>`
       : "";
+
     const div = document.createElement("div");
     div.classList.add("cart-item");
     div.innerHTML = `
-      <div class="item-info"><h4>${item.name} ${preventaLabel}</h4><span>${
-      item.variety
-    }</span><div><strong>${item.price.toFixed(2)}</strong></div></div>
+      <div class="item-info">
+        <h4>${item.name} ${preventaLabel}</h4>
+        <span>${item.variety}</span>
+        <div><strong>${item.price.toFixed(2)}</strong></div>
+      </div>
       <span class="remove-item" onclick="removeFromCart(${item.id})">🗑️</span>`;
     container.appendChild(div);
   });
