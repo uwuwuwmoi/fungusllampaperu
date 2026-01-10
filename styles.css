@@ -1025,6 +1025,16 @@ body.dark-mode .label-text {
   text-shadow: none !important;
 }
 
+/* FIX INDEX DARK MODE: Botón WhatsApp y Subtítulos en Blanco */
+body.dark-mode .btn-outline {
+  color: #fff !important;
+  border-color: #fff !important;
+}
+body.dark-mode .btn-outline:hover {
+  background-color: #fff !important;
+  color: #000 !important;
+}
+
 /* Títulos con Acento Magenta (General) */
 body.dark-mode .nav-links a:hover,
 body.dark-mode .nav-links a.active,
@@ -1059,7 +1069,7 @@ body.dark-mode .section-header p {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
 }
 
-/* GRID DE PRODUCTOS (CORRECCIÓN CLÁSICAS MOSTAZA) */
+/* GRID DE PRODUCTOS */
 /* Nombre de Cepa: Blanco */
 body.dark-mode .info-box h3 {
   color: #fff !important;
@@ -1086,8 +1096,15 @@ body.dark-mode .btn-primary:hover {
   background-color: #7b1fa2 !important;
 }
 
-/* --- MODALS EN DARK MODE --- */
-/* Precio Regular: Blanco Puro */
+/* FIX CARRITO DARK MODE: Texto Blanco */
+body.dark-mode .item-info h4,
+body.dark-mode .item-info span,
+body.dark-mode .item-info strong {
+  color: #fff !important;
+}
+
+/* Modals y Precios */
+/* PRECIO REGULAR BLANCO EN DARK MODE */
 body.dark-mode .modal-price {
   color: #fff !important;
 }
