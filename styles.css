@@ -14,12 +14,12 @@ body {
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 100vh; /* Para que el footer se vaya al fondo */
   transition: background-color 0.3s, color 0.3s;
 }
 
 main {
-  flex: 1;
+  flex: 1; /* Empuja el footer hacia abajo */
 }
 
 /* --- NAVBAR --- */
@@ -364,6 +364,7 @@ main {
   background: white;
   border-radius: 15px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid #eee;
 }
 .product-item:hover {
   transform: translateY(-5px);
@@ -559,7 +560,7 @@ main {
   flex-direction: row;
   align-items: stretch;
   width: 100%;
-  min-height: 0;
+  min-height: 400px;
 }
 .modal-img-wrapper {
   flex: 1.2;
@@ -947,7 +948,7 @@ main {
 
 /* --- FOOTER --- */
 .site-footer {
-  background-color: #222;
+  background-color: #222; /* Default Dark Gray */
   color: #ccc;
   padding: 60px 20px 20px;
   margin-top: auto;
@@ -1069,7 +1070,16 @@ body.dark-mode .section-header p {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
 }
 
-/* GRID DE PRODUCTOS */
+/* GRID DE PRODUCTOS (CORRECCIÓN DOBLE CUADRO MOVIL) */
+body.dark-mode .product-item {
+  border: 1px solid #333;
+}
+body.dark-mode .info-box {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
 /* Nombre de Cepa: Blanco */
 body.dark-mode .info-box h3 {
   color: #fff !important;
@@ -1101,6 +1111,22 @@ body.dark-mode .item-info h4,
 body.dark-mode .item-info span,
 body.dark-mode .item-info strong {
   color: #fff !important;
+}
+
+/* FIX FOOTER "SABÁTICO" EN DARK MODE */
+body.dark-mode .site-footer {
+  background-color: #111 !important; /* Fondo gris oscuro para distinguirlo */
+  border-top: 1px solid #333;
+}
+body.dark-mode .footer-col h3 {
+  color: #9c27b0 !important; /* Títulos footer Magenta */
+}
+body.dark-mode .footer-links a {
+  color: #fff !important;
+}
+body.dark-mode .copyright {
+  border-color: #333;
+  color: #888;
 }
 
 /* Modals y Precios */
@@ -1203,18 +1229,28 @@ body.dark-mode .variant-note p {
     display: flex;
     flex-direction: column;
     gap: 0;
+    /* FIX: Remover estilos duplicados en móvil para evitar doble cuadro */
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  /* Asegurar que las tarjetas individuales tengan su fondo en dark mode */
+  body.dark-mode .hero-text-content {
+    background-color: #121212 !important;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+  }
+  /* Y en light mode */
+  body:not(.dark-mode) .hero-text-content {
     background-color: rgba(255, 255, 255, 0.95);
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    padding: 0;
   }
+
   .hero-text-content {
     text-align: center;
     padding: 40px 30px 20px;
-    background-color: transparent;
-    box-shadow: none;
-    border-radius: 0;
   }
   .hero-main-title {
     font-size: 2.2rem;
@@ -1301,8 +1337,8 @@ body.dark-mode .variant-note p {
     padding: 20px;
     flex: none;
   }
+  /* Ajuste para que la X no se pierda al hacer scroll (ABSOLUTE) */
   .close-btn {
-    position: absolute;
     top: 10px;
     right: 10px;
     background: rgba(255, 255, 255, 0.8);
@@ -1312,5 +1348,7 @@ body.dark-mode .variant-note p {
     line-height: 35px;
     text-align: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    /* Se mantiene absolute según lo pedido, no sticky */
+    position: absolute;
   }
 }
